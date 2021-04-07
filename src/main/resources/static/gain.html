@@ -1,10 +1,164 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>知识抽取</title>
-</head>
+<html lang="zh-CN" class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths"><!--
+--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+    <!-- 删除默认的苹果工具栏和菜单栏 ： 即启用 WebApp 全屏模式  -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- 忽略数字自动识别为电话号码 ,忽略识别邮箱 -->
+    <meta name="format-detection" content="telephone=no, email=no">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <meta baidu-gxt-verify-token="3b6bcf611686765ae899fab8245580c8">
+    <title>中医药数据库</title>
+    <link rel="icon" href="http://lib.seu.edu.cn/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="index_files/bootstrap-select.css">
+
+    <link href="index_files/common.css" rel="stylesheet">
+
+    <link href="index_files/style.css" rel="stylesheet">
+
+
+    <script src="index_files/push.js.下载"></script><script>NS_CSM_td=815728734;NS_CSM_pd=275116667;NS_CSM_u="/clm10";NS_CSM_col="logstream_10.64.16.45";</script><script type="text/javascript">function sendTimingInfoInit(){setTimeout(sendTimingInfo,0)}function sendTimingInfo(){var wp=window.performance;if(wp){var c1,c2,t;c1=wp.timing;if(c1){var cm={};cm.ns=c1.navigationStart;if((t=c1.unloadEventStart)>0)cm.us=t;if((t=c1.unloadEventEnd)>0)cm.ue=t;if((t=c1.redirectStart)>0)cm.rs=t;if((t=c1.redirectEnd)>0)cm.re=t;cm.fs=c1.fetchStart;cm.dls=c1.domainLookupStart;cm.dle=c1.domainLookupEnd;cm.cs=c1.connectStart;cm.ce=c1.connectEnd;if((t=c1.secureConnectionStart)>0)cm.scs=t;cm.rqs=c1.requestStart;cm.rss=c1.responseStart;cm.rse=c1.responseEnd;cm.dl=c1.domLoading;cm.di=c1.domInteractive;cm.dcls=c1.domContentLoadedEventStart;cm.dcle=c1.domContentLoadedEventEnd;cm.dc=c1.domComplete;if((t=c1.loadEventStart)>0)cm.ls=t;if((t=c1.loadEventEnd)>0)cm.le=t;cm.tid=NS_CSM_td;cm.pid=NS_CSM_pd;cm.ac=NS_CSM_col;var xhttp=new XMLHttpRequest();if(xhttp){var JSON=JSON||{};JSON.stringify=JSON.stringify||function(ob){var t=typeof(ob);if(t!="object"||ob===null){if(t=="string")ob='"'+ob+'"';return String(ob);}else{var n,v,json=[],arr=(ob&&ob.constructor==Array);for(n in ob){v=ob[n];t=typeof(v);if(t=="string")v='"'+v+'"';else if(t=="object"&&v!==null)v=JSON.stringify(v);json.push((arr?"":'"'+n+'":')+String(v));}return(arr?"[":"{")+String(json)+(arr?"]":"}");}};xhttp.open("POST",NS_CSM_u,true);xhttp.send(JSON.stringify(cm));}}}}if(window.addEventListener)window.addEventListener("load",sendTimingInfoInit,false);else if(window.attachEvent)window.attachEvent("onload",sendTimingInfoInit);else window.onload=sendTimingInfoInit;</script></head>
 <body>
+<div class="header">
+    <div class="section">
+        <div class="logo-wrap cf">
+            <a href="http://lib.seu.edu.cn/index.html" class="logo">
+                <img src="index_files/logonew.png" alt="">
+            </a>
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+    </div>
+    <div class="main-nav-collapse hidden-xs">
+        <div class="section">
+            <ul class="main-nav-navbar cf">
+
+                <li class="nav-li">
+                    <a class="item-level-1" href="index.html" >首页</a>
+                </li>
+
+                <li class="nav-li">
+                    <a class="item-level-1" href="http://localhost:8090/index.html" onclick="return false;">中药数据检索</a>
+                    <div class="pulldown">
+                        <div class="pulldown-menu">
+                            <ul class="nav-list-level2 cf">
+
+                                <li class="nav-li-level2">
+                                    <a class="item-level-2" href="http://lib.seu.edu.cn/descipt.php?fid=38" target="_self " onclick="return false;">数据库管理</a>
+
+                                    <ul class="nav-list-level3 cf">
+
+                                        <li class="nav-li-level3">
+                                            <a class="item-level-3" href="model.html" target="_self">模型管理</a>
+                                        </li>
+
+                                        <li class="nav-li-level3">
+                                            <a class="item-level-3" href="modify.html" target="_self">数据维护</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-li-level2">
+                                    <a class="item-level-2" href="search.html" target="_self">数据查找</a>
+
+                                    <ul class="nav-list-level3 cf">
+
+                                        <li class="nav-li-level3">
+                                            <a class="item-level-3" href="search.html" target="_self">实体查找</a>
+                                        </li>
+
+                                        <li class="nav-li-level3">
+                                            <a class="item-level-3" href="search.html" target="_self">关系查找</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-li">
+                    <a class="item-level-1" href="http://localhost:8090/index.html" onclick="return false;">数据关联分析</a>
+                    <div class="pulldown">
+                        <div class="pulldown-menu">
+                            <ul class="nav-list-level2 cf">
+
+                                <li class="nav-li-level2">
+                                    <a class="item-level-2" href="cluster.html" target="_self">数据聚类分析</a>
+
+                                    <ul class="nav-list-level3 cf">
+
+                                        <li class="nav-li-level3">
+                                            <a class="item-level-3" href="cluster.html" target="_self">KMEANS</a>
+                                        </li>
+
+                                        <li class="nav-li-level3">
+                                            <a class="item-level-3" href="cluster.html" target="_self">数据聚类分析B</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+                                <li class="nav-li-level2">
+                                    <a class="item-level-2" href="gain.html" target="_self">知识抽取</a>
+
+                                    <ul class="nav-list-level3 cf">
+
+                                        <li class="nav-li-level3">
+                                            <a class="item-level-3" href="gain.html" target="_self">知识抽取A</a>
+                                        </li>
+
+                                        <li class="nav-li-level3">
+                                            <a class="item-level-3" href="gain.html" target="_self">知识抽取B</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-li">
+                    <a class="item-level-1" href="predict.html">中药复方预测</a>
+                </li>
+
+                <li class="nav-li">
+                    <a class="item-level-1" href="connect.html" >联系我们</a>
+                </li>
+
+
+            </ul>
+
+        </div>
+        <div class="pulldown-bg"></div>
+    </div>
+</div>
 这是知识抽取页面
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="index_files/jquery.min.js.下载"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script type="text/javascript" src="index_files/modernizr.min.js.下载"></script>
+<script src="index_files/fastclick.js.下载"></script>
+<script src="index_files/bootstrap-select.js.下载"></script>
+<script src="index_files/iscroll.js.下载"></script>
+<script src="index_files/placeholders.min.js.下载"></script>
+<script src="index_files/float.js.下载"></script>
+
+<script src="index_files/bootstrap.min.js.下载"></script>
+<script src="index_files/common.js.下载" charset="utf-8"></script>
+<script src="index_files/jquery.hoverIntent.minified.js.下载" charset="utf-8"></script>
+
+<script type="text/javascript">$(document).ready(function(){ $('#tx').imgFloat({speed:20,xPos:0,yPos:0});});</script>
+
+
 </body>
 </html>
