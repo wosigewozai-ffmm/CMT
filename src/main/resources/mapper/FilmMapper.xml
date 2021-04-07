@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seu.CMT.mapper.FilmMapper">
+    <select id="findFilmByInfo" resultType="Film" parameterType="Film">
+       SELECT * FROM film
+       WHERE location LIKE '%${location}%'
+       <if test="year!=0">
+           AND year LIKE '%${year}%'
+       </if>
+       AND authority LIKE '%${authority}%'
+       AND type LIKE '%${type}%'
+    </select>
+
+    <insert id="addInfo" parameterType="Film">
+        INSERT  INTO info (name,id,time) VALUES (#{name},#{id},#{time})
+    </insert>
+
+    <insert id="addRecord" parameterType="UserFilm">
+        INSERT INTO userfilm (name,filmid,length,time) VALUES (#{name},#{filmid},#{length},#{time})
+    </insert>
+
+    <update id='updateRecord' parameterType="UserFilm">
+        UPDATE userfilm SET length=#{length},time=#{time} WHERE name=#{name} AND filmid=#{filmid}
+    </update>
+</mapper>

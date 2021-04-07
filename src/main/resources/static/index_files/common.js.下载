@@ -1,0 +1,283 @@
+var EG = {
+    headerHeight: $(".top-nav").outerHeight(),
+    /* detect touch device */
+    isTouchDevice: function () {
+        var deviceAgent = navigator.userAgent.toLowerCase();
+        return Modernizr.touch ||
+            (deviceAgent.match(/(iphone|ipod|ipad)/) ||
+                deviceAgent.match(/(android)/) ||
+                deviceAgent.match(/(iemobile)/) ||
+                deviceAgent.match(/iphone/i) ||
+                deviceAgent.match(/ipad/i) ||
+                deviceAgent.match(/ipod/i) ||
+                deviceAgent.match(/blackberry/i) ||
+                deviceAgent.match(/bada/i));
+    },
+    /*sticky header*/
+    stickyHeader: function () {
+        var top = 0;
+        $(window).scroll(function (e) {
+            top = $(this).scrollTop();
+            EG.headerHeight = $(".top-nav").outerHeight();
+
+            if ($(".main").hasClass('expanded')) {
+                e.preventDefault();
+                e.stopPropagation();
+                return;
+            }
+            if (top > EG.headerHeight) {
+                $(".back-top").stop().fadeIn(300);
+            } else {
+                $(".back-top").stop().fadeOut(300);
+            }
+        })
+    },
+    /* go to top */
+    gototop: function () {
+        $('.back-top').click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            $('html, body').animate({
+                scrollTop: 0
+            }, 1000, 'easeOutCubic');
+        });
+    },
+    /*二维码显示隐藏*/
+    ecodeToggle:function(){
+        if (EG.isTouchDevice()) {
+            $(".ecode-link").on("click",function(e){
+                e.stopPropagation();
+                e.preventDefault();
+				$(".ecode-wrap").hide();
+                var $id = $(this).attr("href");
+                if(typeof $id !== 'undefined'){
+                    $($id).stop().fadeToggle();
+                }
+            });
+            $(document).on("click",".ecode-wrap",function(){
+                $(this).hide();
+            });
+        }else{
+            $(".ecode-link").click(function(e){
+                e.stopPropagation();
+                e.preventDefault();
+            });
+            $(".ecode-link").hover(
+                function(){
+                    var $id = $(this).attr("href");
+                    var width = $(this).offset().left+10;
+                    $($id).css("left",width+"px");
+                    if(typeof $id !== 'undefined'){
+                        $($id).stop().fadeIn();
+                    }
+                },
+                function(){
+                    var $id = $(this).attr("href");
+                    if(typeof $id !== 'undefined'){
+                        $($id).stop().fadeOut();
+                    }
+                }
+            );
+        }
+    },
+    /*导航栏显示二级栏目*/
+   /*导航栏显示二级栏目*/
+    navDropdownMenu: function () {
+        var $window = $(window),
+            $body = $("body"),
+            $pullDown = $('.pulldown'),
+            $pullDownBg = $('.pulldown-bg'),
+            $navLi = $('.main-nav-navbar .nav-li'),
+            $mainmenuListLv1Container = $('.main-nav-collapse .section'),
+            $mainmenuMobile = $('.mobile-main-nav-collapse'),
+            $scroller = $('#scroller'),
+            $mainContainer = $('.main');
+
+        $window.on('resize', function () {
+            if ($window.width() > 768) {
+                if ($body.hasClass('drawer')) {
+                    closeMobileMenu();
+                }
+            }
+        }).trigger('resize');
+
+        function closeMobileMenu() {
+            if ($body.hasClass('drawer')) {
+                $body.removeClass('drawer');
+                setTimeout(function () {
+                    $body.toggleClass('overflow-hidden');
+                }, 20);
+            }
+        };
+
+        if (EG.isTouchDevice()) {
+            //mobile
+            $mainmenuListLv1Container.clone().appendTo($scroller);
+
+            $(document).on("click", ".header .navbar-toggle", function (e) {
+                e.preventDefault();
+                $body.toggleClass('drawer');
+
+                setTimeout(function () {
+                    $body.toggleClass('overflow-hidden');
+                }, 20);
+
+            });
+
+            if (typeof IScroll !== 'undefined') {
+                var myScroll = new IScroll('.mobile-main-nav-collapse', {
+                    scrollbars: true,
+                    mouseWheel: true,
+                    interactiveScrollbars: true,
+                    shrinkScrollbars: 'clip',
+                    fadeScrollbars: true,
+                    useTransform: false, //By default the engine uses the transform CSS property. Setting this to false to using the top/left in andriod browser because if the parent of $scroller and $scroller both set the css transform:translate attr that $scroller will cased offset bug.
+                    preventDefaultException: {
+                        tagName: /^(A|INPUT|TEXTAREA|BUTTON|SELECT)$/
+                    } //http://iscrolljs.com/#advanced-options
+                });
+            }
+
+            $('.main').on('click touchmove', function (e) {
+                closeMobileMenu();
+            });
+
+            $mainmenuMobile.on('swiperight', function () {
+                closeMobileMenu();
+            });
+
+            $('.mobile-main-nav-collapse .main-nav-navbar .item-level-1').on('click', function () {
+                var thisParent = $(this).parent();
+
+                if (thisParent.hasClass('active')) {
+                    thisParent.removeClass('active');
+                    $('.pulldown', thisParent).stop(true, true).slideUp(350, function () {
+                        $(this).hide(); // ios6 can not hide .pulldown immediately
+                        iScrollRefresh();
+                    });
+                    return false;
+                }
+
+                thisParent.addClass('active');
+                $('.pulldown', thisParent).stop(true, true).slideDown(400, function () {
+                    iScrollRefresh();
+                });
+            });
+
+
+
+
+            function iScrollRefresh() {
+                setTimeout(function () {
+                    myScroll.refresh();
+                }, 0);
+            };
+        } else {
+            //pc
+          //pc
+            $(".main-nav-navbar .item-level-1").click(function () {
+                var dropdownMenu = $(this).parent().find(".pulldown");
+                if (dropdownMenu.length > 0) {
+                    return false;
+                }
+            });
+            
+            $navLi.hoverIntent(function () {
+                menuEffect($(this));
+            }, function () {});
+
+            $('.main-nav-collapse').on('mouseleave', function () {
+                onMenuLeave();
+            });
+
+            function menuEffect(elem) {
+                var $this = elem,
+                    dropdownMenu = $this.find(".pulldown"),
+                    $thisPulldownHeight = dropdownMenu.outerHeight(true);
+                if (dropdownMenu.length == 0) {
+                    return false;
+                }
+                if ($this.hasClass('active')) {
+                    return false;
+                }
+                $pullDown.fadeOut();
+                $navLi.removeClass("active");
+                $this.addClass("active");
+                $pullDownBg.stop(true, true).animate({
+                    'height': $thisPulldownHeight + 'px'
+                });
+                $mainContainer.stop(true, true).animate({
+                    'margin-top': $thisPulldownHeight + 'px'
+                });
+                dropdownMenu.fadeIn();
+            }
+
+            function onMenuLeave() {
+                $navLi.removeClass("active");
+                $pullDown.stop().fadeOut(100, function () {
+                    $pullDownBg.animate({
+                        'height': 0
+                    });
+                });
+                $mainContainer.stop(true, true).animate({
+                    'margin-top': 0
+                });
+            };
+        }
+    },
+    tabSearchMobile: function () {
+        if (EG.isTouchDevice()) {
+            $(document).on("click", ".r-tabs-accordition-title .r-tabs-anchor", function () {
+                $(this).parent().toggleClass("active");
+            });
+        }
+    },
+    tabsEvent:function(){
+        $(".search-tab-navs a").click(function(e){
+            e.preventDefault();
+             $(this).parent().addClass("active").siblings().removeClass("active");
+            var pane = $(this).attr("href");
+            $(pane).addClass("active").siblings().removeClass("active");
+        });
+    },
+	leftNavToggle:function(){
+        $('.content-left .content-left-nav .a-level-2').on('click',function(e){
+            e.preventDefault();
+            $(this).parent().addClass('active').parent().siblings().find('.a-level-2').parent().removeClass('active');
+        });
+    }
+};
+! function ($) {
+
+    $.extend($.easing, {
+        easeOutCubic: function (x, t, b, c, d) {
+            return c * ((t = t / d - 1) * t * t + 1) + b;
+        },
+        easeInExpo: function (x, t, b, c, d) {
+            return (t == 0) ? b : c * Math.pow(2, 10 * (t / d - 1)) + b;
+        },
+        easeOutExpo: function (x, t, b, c, d) {
+            return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
+        }
+    });
+    $(document).ready(function () {
+        EG.stickyHeader();
+        EG.gototop();
+        EG.ecodeToggle();
+        EG.navDropdownMenu();
+        EG.tabSearchMobile();
+        EG.tabsEvent();
+		EG.leftNavToggle();
+        $('#carousel-banner').carousel({
+			interval:false
+		})
+    });
+    $(window).load(function () {
+        EG.gototop();
+
+    })
+}(window.jQuery);
+
+$(function () {
+    FastClick.attach(document.body);
+});
