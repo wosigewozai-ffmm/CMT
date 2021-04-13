@@ -146,12 +146,65 @@
 
 
     <div id="upload" class="center">
-        <h1>img upload</h1>
+        <h1>excel upload</h1>
         <input type="file" name="filename" id="filename"    />
         <input type="button" id="submit" onclick="imgUpload()" value="submit"/>
     </div>
 
+    <div>
+        <h1>功效实体增加</h1>
+        <input id = "effectName" type = "text" placeholder="功效名">
+        <input type="button" id="insertEffect" onclick="addEffect()" value="Insert"/>
+        <a href="/modify/getAllEffect" class="center">
+
+            <button>show All Effect</button>
+
+        </a>
+    </div>
+    <div>
+        <h1>药方实体增加</h1>
+        <input id = "prescriptionName" type = "text" placeholder="药方名">
+        <input type="button" id="insert" onclick="addPrescription()" value="Insert"/>
+        <a href="/modify/getAllPrescription" class="center">
+
+            <button>show All Prescription</button>
+
+        </a>
+    </div>
 <script>
+    function addEffect() {
+        var model = {
+            "name": document.getElementById("effectName").value
+        }
+        $.ajax({
+            url: "/modify/addEffect",
+            type: "POST",
+            async: true,
+            contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
+            data: JSON.stringify(model), //将JSON对象转换为JSON字符串
+            dataType: 'json',
+            success: function (data) {
+
+            }
+        })
+    }
+
+    function addPrescription() {
+        var model = {
+            "name": document.getElementById("prescriptionName").value
+        }
+        $.ajax({
+            url: "/modify/addPrescription",
+            type: "POST",
+            async: true,
+            contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
+            data: JSON.stringify(model), //将JSON对象转换为JSON字符串
+            dataType: 'json',
+            success: function (data) {
+
+            }
+        })
+    }
 
     function imgUpload(){
     var formdata=new FormData();

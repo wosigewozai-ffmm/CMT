@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.seu</groupId>
-    <artifactId>film</artifactId>
+    <artifactId>CMT</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>film</name>
+    <name>CMT</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -135,6 +135,13 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
+        <!--neo4j-jdbc-driver-->
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-jdbc-driver</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+
         <!--spring2.0集成redis所需common-pool2-->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -160,12 +167,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional> <!-- 这个需要为 true 热部署才有效 -->
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin.external.google</groupId>
-            <artifactId>android-json</artifactId>
-            <version>0.0.20131108.vaadin1</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 

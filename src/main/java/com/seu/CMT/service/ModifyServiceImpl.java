@@ -1,7 +1,9 @@
 package com.seu.CMT.service;
 
 import com.seu.CMT.mapper.ModifyMapper;
-import com.seu.CMT.pojo.Film;
+import com.seu.CMT.pojo.EffectModel;
+import com.seu.CMT.pojo.ExcelData;
+import com.seu.CMT.pojo.PrescriptionModel;
 import com.seu.CMT.pojo.ResultDTO;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @Service("modifyService")
 @Transactional
@@ -20,8 +23,8 @@ public class ModifyServiceImpl implements ModifyService {
     ModifyMapper modifyMapper;
 
     @Override
-    public ResultDTO<Film> addExcel(MultipartFile file) throws IOException {
-        ResultDTO<Film> resultDTO = new ResultDTO<>();
+    public ResultDTO<ExcelData> addExcel(MultipartFile file) throws IOException {
+        ResultDTO<ExcelData> resultDTO = new ResultDTO<>();
         System.out.println("addExcel");
         String fileName = file.getOriginalFilename();
         ClassPathResource resource = new ClassPathResource("");
@@ -39,5 +42,17 @@ public class ModifyServiceImpl implements ModifyService {
             resultDTO.setCode(0);
         }
         return resultDTO;
+    }
+
+    @Override
+    public List<EffectModel> getAllEffect() {
+        List<EffectModel> models = modifyMapper.getAllEffect();
+        return models;
+    }
+
+    @Override
+    public List<PrescriptionModel> getAllPrescription() {
+        List<PrescriptionModel> models = modifyMapper.getAllPrescription();
+        return models;
     }
 }

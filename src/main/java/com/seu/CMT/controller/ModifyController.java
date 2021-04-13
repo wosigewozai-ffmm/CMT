@@ -1,29 +1,62 @@
 package com.seu.CMT.controller;
 
-import com.seu.CMT.pojo.Film;
-import com.seu.CMT.pojo.ExcelData;
-import com.seu.CMT.pojo.ResultDTO;
+import com.seu.CMT.mapper.ModifyMapper;
+import com.seu.CMT.pojo.*;
 import com.seu.CMT.service.ModifyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-@Controller
+import java.util.List;
+
+@RestController
 @RequestMapping({"modify"})
 
 public class ModifyController {
     @Autowired
     ModifyService modifyService;
+    @Autowired
+    private ModifyMapper modifyMapper;
+
     public ModifyController(){
+    }
+
+    @GetMapping("/getAll")
+    public List<UserModel> getAll() {
+        List<UserModel> models = modifyMapper.getAll();
+        return models;
+    }
+
+    @GetMapping("/getAllEffect")
+    public List<EffectModel> getAllEffect(){
+        List<EffectModel> models = modifyService.getAllEffect();
+        return models;
+    }
+
+    @GetMapping("/getAllPrescription")
+    public List<PrescriptionModel> getAllPrescription(){
+        List<PrescriptionModel> models = modifyService.getAllPrescription();
+        return models;
+    }
+
+    @RequestMapping("/addEffect")
+    public int addEffect(@RequestBody EffectModel model) {
+        System.out.println(model);
+        int i = modifyMapper.addEffect(model);
+        return i;
+    }
+
+    @RequestMapping("/addPrescription")
+    public int addPrescription(@RequestBody PrescriptionModel model) {
+        System.out.println(model);
+        int i = modifyMapper.addPrescription(model);
+        return i;
     }
 
     @RequestMapping("/addExcel")
     @ResponseBody
-    public ResultDTO<Film> addExcel(@RequestParam("fileName")MultipartFile file) throws Exception{
-        ResultDTO<Film> resultDTO= modifyService.addExcel(file);
+    public ResultDTO<ExcelData> addExcel(@RequestParam("fileName")MultipartFile file) throws Exception{
+        ResultDTO<ExcelData> resultDTO= modifyService.addExcel(file);
         return resultDTO;
     }
 }

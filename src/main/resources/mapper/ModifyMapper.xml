@@ -2,6 +2,62 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.seu.CMT.mapper.FilmMapper">
+<mapper namespace="com.seu.CMT.mapper.ModifyMapper">
+
+    <!-- 自定义结果集-->
+    <resultMap id="userMap" type="com.seu.CMT.pojo.UserModel">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <collection property="userModels" ofType="com.seu.CMT.pojo.UserModel">
+            <id property="id" column="id1"/>
+            <result property="name" column="name1"/>
+            <result property="age" column="age1"/>
+            <result property="sex" column="sex1"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="effectMap" type="com.seu.CMT.pojo.EffectModel">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <collection property="effectModels" ofType="com.seu.CMT.pojo.EffectModel">
+            <id property="id" column="id1"/>
+            <result property="name" column="name1"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="prescriptionMap" type="com.seu.CMT.pojo.PrescriptionModel">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <collection property="prescriptionModels" ofType="com.seu.CMT.pojo.PrescriptionModel">
+            <id property="id" column="id1"/>
+            <result property="name" column="name1"/>
+        </collection>
+    </resultMap>
+
+    <select id="getAllPrescription" resultMap="prescriptionMap">
+        match
+        (u:prescription)
+        return
+        id(u) as id,u.name as name
+    </select>
+
+    <!--create(u:user{name:'aaa'}) - [l:like] -> (u1:user{name:'bbb'}) - [l1:like] -> (u2:user{name:'ccc'})-->
+    <insert id="addPrescription">
+        create(u:prescription{name:#{model.name}})
+    </insert>
+
+    <select id="getAllEffect" resultMap="effectMap">
+        match
+        (u:effect)
+        return
+        id(u) as id,u.name as name
+    </select>
+
+    <!--create(u:user{name:'aaa'}) - [l:like] -> (u1:user{name:'bbb'}) - [l1:like] -> (u2:user{name:'ccc'})-->
+    <insert id="addEffect">
+        create(u:effect{name:#{model.name}})
+    </insert>
 
 </mapper>
