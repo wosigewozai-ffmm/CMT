@@ -13,4 +13,6 @@ public interface ModifyService {
     ResultDTO<ExcelData> addExcel(MultipartFile file) throws IOException;
     List<EffectModel> getAllEffect();
     List<PrescriptionModel> getAllPrescription();
+    int addEffect(EffectModel effectModel);
+    int addPrescription(PrescriptionModel prescriptionModel);
 }

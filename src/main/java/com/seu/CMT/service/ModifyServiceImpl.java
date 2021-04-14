@@ -55,4 +55,16 @@ public class ModifyServiceImpl implements ModifyService {
         List<PrescriptionModel> models = modifyMapper.getAllPrescription();
         return models;
     }
+
+    @Override
+    public int addEffect(EffectModel effectModel) {
+        int i = modifyMapper.addEffect(effectModel);
+        return i;
+    }
+
+    @Override
+    public int addPrescription(PrescriptionModel prescriptionModel) {
+        int i = modifyMapper.addPrescription(prescriptionModel);
+        return i;
+    }
 }
