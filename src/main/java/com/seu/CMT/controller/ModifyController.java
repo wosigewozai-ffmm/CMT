@@ -20,13 +20,7 @@ public class ModifyController {
 
     public ModifyController(){
     }
-/*
-    @GetMapping("/getAll")
-    public List<UserModel> getAll() {
-        List<UserModel> models = modifyMapper.getAll();
-        return models;
-    }
-*/
+
     @GetMapping("/getAllEffect")
     public List<Model> getAllEffect(){
         List<Model> models = modifyService.getAllEffect();
@@ -40,9 +34,11 @@ public class ModifyController {
     }
 
     @RequestMapping("/add")
-    public int addEffect(@RequestBody Model model) {
-        int i = modifyService.add(model);
-        return i;
+    @ResponseBody
+    public ResultDTO<Model> addEntity(@RequestBody Model model) {
+        ResultDTO<Model> resultDTO = new ResultDTO<>();
+        resultDTO = modifyService.add(model);
+        return resultDTO;
     }
 
     @RequestMapping("/addExcel")

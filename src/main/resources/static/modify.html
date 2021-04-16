@@ -177,7 +177,114 @@
         <input id = "effectName_hasEffect" type = "text" placeholder="功效名">
         <input type="button" id="insertHasEffect" onclick="addHasEffect()" value="Insert"/>
     </div>
+    <div>
+        <h1>插入实体</h1>
+        <input id = "entityName" type = "text" placeholder="实体名">
+        <select id="entityType" onchange="selectChange()">
+            <option value="方剂" selected>方剂</option>
+            <option value="症状">症状</option>
+            <option value="药材">药材</option>
+            <option value="功效">功效</option>
+            <option value="功用大类">功用大类</option>
+            <option value="功用小类">功用小类</option>
+        </select>
+        <input type="button" id="addEntity" onclick="addEntity()" value="Insert"/>
+        <br>
+        <input id = "entityEffect" type = "text" placeholder="功效" >
+
+        <input id = "entityPrescription" type = "text" placeholder="方剂">
+        <br>
+        <input id = "entityHerb" type = "text" placeholder="药材">
+
+        <input id = "entitySymptom" type = "text" placeholder="症状">
+        <br>
+        <input id = "entityFunction_Large" type = "text" placeholder="功用大类">
+
+        <input id = "entityFunction_Small" type = "text" placeholder="功用小类">
+    </div>
 <script>
+    function selectChange(){
+        document.getElementById("entityEffect").value="";
+        document.getElementById("entityPrescription").value="";
+        document.getElementById("entityHerb").value="";
+        document.getElementById("entitySymptom").value="";
+        document.getElementById("entityFunction_Large").value="";
+        document.getElementById("entityFunction_Small").value="";
+        switch (document.getElementById("entityType").value) {
+            case "方剂":
+                document.getElementById("entityEffect").disabled="";
+                document.getElementById("entityPrescription").disabled="disabled";
+                document.getElementById("entityHerb").disabled="disabled";
+                document.getElementById("entitySymptom").disabled="";
+                document.getElementById("entityFunction_Large").disabled="";
+                document.getElementById("entityFunction_Small").disabled="";
+                break;
+            case "功效":
+                document.getElementById("entityEffect").disabled="disabled";
+                document.getElementById("entityPrescription").disabled="disabled";
+                document.getElementById("entityHerb").disabled="disabled";
+                document.getElementById("entitySymptom").disabled="disabled";
+                document.getElementById("entityFunction_Large").disabled="disabled";
+                document.getElementById("entityFunction_Small").disabled="disabled";
+                break;
+            case "药材":
+                document.getElementById("entityEffect").disabled="disabled";
+                document.getElementById("entityPrescription").disabled="";
+                document.getElementById("entityHerb").disabled="disabled";
+                document.getElementById("entitySymptom").disabled="disabled";
+                document.getElementById("entityFunction_Large").disabled="disabled";
+                document.getElementById("entityFunction_Small").disabled="disabled";
+                break;
+            case "症状":
+                document.getElementById("entityEffect").disabled="disabled";
+                document.getElementById("entityPrescription").disabled="disabled";
+                document.getElementById("entityHerb").disabled="disabled";
+                document.getElementById("entitySymptom").disabled="disabled";
+                document.getElementById("entityFunction_Large").disabled="disabled";
+                document.getElementById("entityFunction_Small").disabled="disabled";
+                break;
+            case "功用大类":
+                document.getElementById("entityEffect").disabled="disabled";
+                document.getElementById("entityPrescription").disabled="disabled";
+                document.getElementById("entityHerb").disabled="disabled";
+                document.getElementById("entitySymptom").disabled="disabled";
+                document.getElementById("entityFunction_Large").disabled="disabled";
+                document.getElementById("entityFunction_Small").disabled="";
+                break;
+            case "功用小类":
+                document.getElementById("entityEffect").disabled="disabled";
+                document.getElementById("entityPrescription").disabled="disabled";
+                document.getElementById("entityHerb").disabled="disabled";
+                document.getElementById("entitySymptom").disabled="disabled";
+                document.getElementById("entityFunction_Large").disabled="disabled";
+                document.getElementById("entityFunction_Small").disabled="disabled";
+                break;
+        }
+    }
+    function addEntity() {
+        var model = {
+            "name": document.getElementById("entityName").value,
+            "type": document.getElementById("entityType").value,
+            "effect": document.getElementById("entityEffect").value,
+            "prescription": document.getElementById("entityPrescription").value,
+            "herb": document.getElementById("entityHerb").value,
+            "symptom": document.getElementById("entitySymptom").value,
+            "function_large": document.getElementById("entityFunction_Large").value,
+            "function_small": document.getElementById("entityFunction_Small").value
+        }
+        $.ajax({
+            url: "/modify/add",
+            type: "POST",
+            async: true,
+            contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
+            data: JSON.stringify(model), //将JSON对象转换为JSON字符串
+            dataType: 'json',
+            success: function (data) {
+                alert(data.msg);
+            }
+        })
+    }
+
     function addHasEffect(){
         var model = {
             "nameA": document.getElementById("prescriptionName_hasEffect").value,
@@ -192,7 +299,7 @@
             data: JSON.stringify(model),
             dataType:'json',
             success: function(data){
-                console.log("success");
+                alert(data.msg);
             }
         })
     }
@@ -209,7 +316,7 @@
             data: JSON.stringify(model), //将JSON对象转换为JSON字符串
             dataType: 'json',
             success: function (data) {
-
+                alert(data.msg);
             }
         })
     }
@@ -227,7 +334,7 @@
             data: JSON.stringify(model), //将JSON对象转换为JSON字符串
             dataType: 'json',
             success: function (data) {
-
+                alert(data.msg);
             }
         })
     }

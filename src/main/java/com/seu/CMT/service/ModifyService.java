@@ -10,6 +10,6 @@ public interface ModifyService {
     ResultDTO<ExcelData> addExcel(MultipartFile file) throws IOException;
     List<Model> getAllEffect();
     List<Model> getAllPrescription();
-    int add(Model model);
+    ResultDTO<Model> add(Model model);
     int addRelation(Relation relation);
 }

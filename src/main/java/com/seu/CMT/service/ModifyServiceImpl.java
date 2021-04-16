@@ -54,10 +54,18 @@ public class ModifyServiceImpl implements ModifyService {
     }
 
     @Override
-    public int add(Model model) {
-        System.out.println(model);
-        int i = modifyMapper.add(model);
-        return i;
+    public ResultDTO<Model> add(Model model) {
+        ResultDTO<Model> resultDTO = new ResultDTO<>();
+        List<Model> models = modifyMapper.find(model.getName());
+        if (models.size()>0){
+            resultDTO.setMsg("entity duplicate");
+            resultDTO.setCode(0);
+        }else{
+            int i = modifyMapper.add(model);
+            resultDTO.setCode(i);
+            resultDTO.setMsg("success");
+        }
+        return resultDTO;
     }
 
     @Override
