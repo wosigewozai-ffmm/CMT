@@ -171,13 +171,38 @@
 
         </a>
     </div>
+    <div>
+        <h1>增加药效关系</h1>
+        <input id = "prescriptionName_hasEffect" type = "text" placeholder="药方名">
+        <input id = "effectName_hasEffect" type = "text" placeholder="功效名">
+        <input type="button" id="insertHasEffect" onclick="addHasEffect()" value="Insert"/>
+    </div>
 <script>
-    function addEffect() {
+    function addHasEffect(){
         var model = {
-            "name": document.getElementById("effectName").value
+            "nameA": document.getElementById("prescriptionName_hasEffect").value,
+            "nameB": document.getElementById("effectName_hasEffect").value,
+            "relation": "hasEffect"
         }
         $.ajax({
-            url: "/modify/addEffect",
+            url:"/modify/addRelation",
+            type:"POST",
+            async:true,
+            contentType:"application/json;charset=UTF-8",
+            data: JSON.stringify(model),
+            dataType:'json',
+            success: function(data){
+                console.log("success");
+            }
+        })
+    }
+    function addEffect() {
+        var model = {
+            "name": document.getElementById("effectName").value,
+            "type": "effect"
+        }
+        $.ajax({
+            url: "/modify/add",
             type: "POST",
             async: true,
             contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
@@ -191,10 +216,11 @@
 
     function addPrescription() {
         var model = {
-            "name": document.getElementById("prescriptionName").value
+            "name": document.getElementById("prescriptionName").value,
+            "type": "prescription"
         }
         $.ajax({
-            url: "/modify/addPrescription",
+            url: "/modify/add",
             type: "POST",
             async: true,
             contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8

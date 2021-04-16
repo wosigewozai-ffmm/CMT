@@ -1,10 +1,7 @@
 package com.seu.CMT.service;
 
 import com.seu.CMT.mapper.ModifyMapper;
-import com.seu.CMT.pojo.EffectModel;
-import com.seu.CMT.pojo.ExcelData;
-import com.seu.CMT.pojo.PrescriptionModel;
-import com.seu.CMT.pojo.ResultDTO;
+import com.seu.CMT.pojo.*;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,26 +42,27 @@ public class ModifyServiceImpl implements ModifyService {
     }
 
     @Override
-    public List<EffectModel> getAllEffect() {
-        List<EffectModel> models = modifyMapper.getAllEffect();
+    public List<Model> getAllEffect() {
+        List<Model> models = modifyMapper.getAll("effect");
         return models;
     }
 
     @Override
-    public List<PrescriptionModel> getAllPrescription() {
-        List<PrescriptionModel> models = modifyMapper.getAllPrescription();
+    public List<Model> getAllPrescription() {
+        List<Model> models = modifyMapper.getAll("prescription");
         return models;
     }
 
     @Override
-    public int addEffect(EffectModel effectModel) {
-        int i = modifyMapper.addEffect(effectModel);
+    public int add(Model model) {
+        System.out.println(model);
+        int i = modifyMapper.add(model);
         return i;
     }
 
     @Override
-    public int addPrescription(PrescriptionModel prescriptionModel) {
-        int i = modifyMapper.addPrescription(prescriptionModel);
+    public int addRelation(Relation relation) {
+        int i = modifyMapper.addRelation(relation);
         return i;
     }
 }

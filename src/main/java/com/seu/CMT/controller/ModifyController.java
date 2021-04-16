@@ -28,28 +28,20 @@ public class ModifyController {
     }
 */
     @GetMapping("/getAllEffect")
-    public List<EffectModel> getAllEffect(){
-        List<EffectModel> models = modifyService.getAllEffect();
+    public List<Model> getAllEffect(){
+        List<Model> models = modifyService.getAllEffect();
         return models;
     }
 
     @GetMapping("/getAllPrescription")
-    public List<PrescriptionModel> getAllPrescription(){
-        List<PrescriptionModel> models = modifyService.getAllPrescription();
+    public List<Model> getAllPrescription(){
+        List<Model> models = modifyService.getAllPrescription();
         return models;
     }
 
-    @RequestMapping("/addEffect")
-    public int addEffect(@RequestBody EffectModel model) {
-        System.out.println(model);
-        int i = modifyService.addEffect(model);
-        return i;
-    }
-
-    @RequestMapping("/addPrescription")
-    public int addPrescription(@RequestBody PrescriptionModel model) {
-        System.out.println(model);
-        int i = modifyService.addPrescription(model);
+    @RequestMapping("/add")
+    public int addEffect(@RequestBody Model model) {
+        int i = modifyService.add(model);
         return i;
     }
 
@@ -58,5 +50,12 @@ public class ModifyController {
     public ResultDTO<ExcelData> addExcel(@RequestParam("fileName")MultipartFile file) throws Exception{
         ResultDTO<ExcelData> resultDTO= modifyService.addExcel(file);
         return resultDTO;
+    }
+
+    @RequestMapping("/addRelation")
+    public int hasEffect(@RequestBody Relation relation){
+        System.out.println(relation);
+        int i = modifyService.addRelation(relation);
+        return i;
     }
 }
