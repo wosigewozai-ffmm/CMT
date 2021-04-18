@@ -58,7 +58,7 @@ public class ModifyServiceImpl implements ModifyService {
         ResultDTO<Model> resultDTO = new ResultDTO<>();
         List<Model> models = modifyMapper.find(model.getName());
         if (models.size()>0){
-            resultDTO.setMsg("entity duplicate");
+            resultDTO.setMsg("relation duplicate");
             resultDTO.setCode(0);
         }else{
             int i = modifyMapper.add(model);
@@ -69,8 +69,17 @@ public class ModifyServiceImpl implements ModifyService {
     }
 
     @Override
-    public int addRelation(Relation relation) {
-        int i = modifyMapper.addRelation(relation);
-        return i;
+    public ResultDTO<Relation> addRelation(Relation relation) {
+        ResultDTO<Relation> relationResultDTO = new ResultDTO<>();
+        List<Model> relationModels = modifyMapper.findRelation(relation);
+        if (relationModels.size()>0){
+            relationResultDTO.setMsg("entity duplicate");
+            relationResultDTO.setCode(0);
+        }else{
+            int i = modifyMapper.addRelation(relation);
+            relationResultDTO.setCode(i);
+            relationResultDTO.setMsg("success");
+        }
+        return relationResultDTO;
     }
 }

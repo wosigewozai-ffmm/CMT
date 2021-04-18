@@ -11,5 +11,5 @@ public interface ModifyService {
     List<Model> getAllEffect();
     List<Model> getAllPrescription();
     ResultDTO<Model> add(Model model);
-    int addRelation(Relation relation);
+    ResultDTO<Relation> addRelation(Relation relation);
 }

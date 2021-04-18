@@ -49,9 +49,11 @@ public class ModifyController {
     }
 
     @RequestMapping("/addRelation")
-    public int hasEffect(@RequestBody Relation relation){
+    @ResponseBody
+    public ResultDTO<Relation> addRelation(@RequestBody Relation relation){
         System.out.println(relation);
-        int i = modifyService.addRelation(relation);
-        return i;
+        ResultDTO<Relation> resultDTO = new ResultDTO<>();
+        resultDTO = modifyService.addRelation(relation);
+        return resultDTO;
     }
 }

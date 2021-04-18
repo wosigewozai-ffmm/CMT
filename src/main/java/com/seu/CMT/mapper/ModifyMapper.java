@@ -14,4 +14,6 @@ public interface ModifyMapper {
     int addRelation(@Param("relation") Relation relation);
 
     List<Model> find(String name);
+
+    List<Model> findRelation(@Param("relation") Relation relation);
 }

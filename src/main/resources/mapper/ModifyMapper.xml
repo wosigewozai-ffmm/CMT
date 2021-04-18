@@ -45,6 +45,13 @@
         u.name as name
     </select>
 
+    <select id="findRelation" resultMap="resultMap">
+        MATCH (m:Model { name:#{relation.nameA}})
+        MATCH (n:Model { name:#{relation.nameB}})
+        MATCH (m)-[:${relation.relation}]->(n)
+        return n,m
+    </select>
+
     <!--create(u:user{name:'aaa'}) - [l:like] -> (u1:user{name:'bbb'}) - [l1:like] -> (u2:user{name:'ccc'})-->
     <insert id="add">
         create(u:Model{name:#{model.name},type:#{model.type},effect:#{model.effect},prescription:#{model.prescription},herb:#{model.herb},symptom:#{model.symptom},function_large:#{model.function_large},function_small:#{model.function_small}})
