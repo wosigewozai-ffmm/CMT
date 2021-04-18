@@ -8,6 +8,15 @@ public class Relation {
     private String relation;
     private List<Relation> relations;
 
+    public Relation() {
+    }
+
+    public Relation(String nameA, String relation, String nameB) {
+        this.nameA = nameA;
+        this.nameB = nameB;
+        this.relation = relation;
+    }
+
     public String getNameA() {
         return nameA;
     }

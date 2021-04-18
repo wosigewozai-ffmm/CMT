@@ -2,6 +2,8 @@ package com.seu.CMT.service;
 
 import com.seu.CMT.mapper.ModifyMapper;
 import com.seu.CMT.pojo.*;
+import com.seu.CMT.schema.Schema;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,8 @@ import java.util.List;
 public class ModifyServiceImpl implements ModifyService {
     @Resource
     ModifyMapper modifyMapper;
+
+    Schema schema = new Schema();
 
     @Override
     public ResultDTO<ExcelData> addExcel(MultipartFile file) throws IOException {
@@ -62,6 +66,49 @@ public class ModifyServiceImpl implements ModifyService {
             resultDTO.setCode(0);
         }else{
             int i = modifyMapper.add(model);
+            String[][] schemaMap = schema.getRelation();
+            if (schemaMap[schema.relationMap(model.getType()
+            )][schema.relationMap("功效")]!= null){
+                Relation relation = new Relation(model.getName(),schemaMap[schema.relationMap(model.getType()
+                )][schema.relationMap("功效")],model.getEffect());
+                if (relation.getNameB()!=null)
+                    i = modifyMapper.addRelation(relation);
+            }
+            if (schemaMap[schema.relationMap(model.getType()
+            )][schema.relationMap("方剂")]!= null){
+                Relation relation = new Relation(model.getName(),schemaMap[schema.relationMap(model.getType()
+                )][schema.relationMap("方剂")],model.getPrescription());
+                if (relation.getNameB()!=null)
+                    i = modifyMapper.addRelation(relation);
+            }
+            if (schemaMap[schema.relationMap(model.getType()
+            )][schema.relationMap("药材")]!= null){
+                Relation relation = new Relation(model.getName(),schemaMap[schema.relationMap(model.getType()
+                )][schema.relationMap("药材")],model.getHerb());
+                if (relation.getNameB()!=null)
+                    i = modifyMapper.addRelation(relation);
+            }
+            if (schemaMap[schema.relationMap(model.getType()
+            )][schema.relationMap("症状")]!= null){
+                Relation relation = new Relation(model.getName(),schemaMap[schema.relationMap(model.getType()
+                )][schema.relationMap("症状")],model.getSymptom());
+                if (relation.getNameB()!=null)
+                    i = modifyMapper.addRelation(relation);
+            }
+            if (schemaMap[schema.relationMap(model.getType()
+            )][schema.relationMap("功用大类")]!= null){
+                Relation relation = new Relation(model.getName(),schemaMap[schema.relationMap(model.getType()
+                )][schema.relationMap("功用大类")],model.getFunction_large());
+                if (relation.getNameB()!=null)
+                    i = modifyMapper.addRelation(relation);
+            }
+            if (schemaMap[schema.relationMap(model.getType()
+            )][schema.relationMap("功用小类")]!= null){
+                Relation relation = new Relation(model.getName(),schemaMap[schema.relationMap(model.getType()
+                )][schema.relationMap("功用小类")],model.getFunction_small());
+                if (relation.getNameB()!=null)
+                    i = modifyMapper.addRelation(relation);
+            }
             resultDTO.setCode(i);
             resultDTO.setMsg("success");
         }

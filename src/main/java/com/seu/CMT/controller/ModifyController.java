@@ -2,6 +2,7 @@ package com.seu.CMT.controller;
 
 import com.seu.CMT.mapper.ModifyMapper;
 import com.seu.CMT.pojo.*;
+import com.seu.CMT.schema.Schema;
 import com.seu.CMT.service.ModifyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
