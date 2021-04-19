@@ -2,6 +2,8 @@ package com.seu.CMT.schema;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 public class Schema {
@@ -9,20 +11,23 @@ public class Schema {
 
     private String[][] relation = new String[9][9];
 
+    public Map<String, Integer> getMap() {
+        return map;
+    }
+
+    public void setMap(Map<String, Integer> map) {
+        this.map = map;
+    }
+
     public Schema() {
-        map.put("方剂",1);
-        map.put("功效",2);
-        map.put("药材",3);
-        map.put("症状",4);
-        map.put("功用大类",5);
-        map.put("功用小类",6);
-        String path = "C:\\Users\\yuhongtao\\IdeaProjects\\CMT\\target\\classes\\static\\schema\\schemaLog.txt";
+        String path = "C:\\Users\\yuhon\\IdeaProjects\\CMT\\target\\classes\\static\\schema\\schemaLog.txt";
         File file = new File(path);
         BufferedReader reader = null;
         StringBuffer sbf = new StringBuffer();
         try {
             reader = new BufferedReader(new FileReader(file));
             String tempStr;
+            int sum = 0;
             while ((tempStr = reader.readLine()) != null) {
                 String entityA = new String();
                 String _relation = new String();
@@ -41,6 +46,14 @@ public class Schema {
                 while (i<tempStr.length()-1){
                     entityB += tempStr.charAt(i);
                     i++;
+                }
+                if (!map.containsKey(entityA)){
+                    sum++;
+                    map.put(entityA,sum);
+                }
+                if (!map.containsKey(entityB)){
+                    sum++;
+                    map.put(entityB,sum);
                 }
                 relation[map.get(entityA)][map.get(entityB)]=_relation;
                 sbf.append(tempStr);

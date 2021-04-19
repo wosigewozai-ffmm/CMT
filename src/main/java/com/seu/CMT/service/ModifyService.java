@@ -12,4 +12,6 @@ public interface ModifyService {
     List<Model> getAllPrescription();
     ResultDTO<Model> add(Model model);
     ResultDTO<Relation> addRelation(Relation relation);
+
+    ResultDTO<Model> deleteEntity(Model model);
 }

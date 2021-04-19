@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Service("modifyService")
 @Transactional
@@ -67,47 +68,14 @@ public class ModifyServiceImpl implements ModifyService {
         }else{
             int i = modifyMapper.add(model);
             String[][] schemaMap = schema.getRelation();
-            if (schemaMap[schema.relationMap(model.getType()
-            )][schema.relationMap("功效")]!= null){
-                Relation relation = new Relation(model.getName(),schemaMap[schema.relationMap(model.getType()
-                )][schema.relationMap("功效")],model.getEffect());
-                if (relation.getNameB()!=null)
-                    i = modifyMapper.addRelation(relation);
-            }
-            if (schemaMap[schema.relationMap(model.getType()
-            )][schema.relationMap("方剂")]!= null){
-                Relation relation = new Relation(model.getName(),schemaMap[schema.relationMap(model.getType()
-                )][schema.relationMap("方剂")],model.getPrescription());
-                if (relation.getNameB()!=null)
-                    i = modifyMapper.addRelation(relation);
-            }
-            if (schemaMap[schema.relationMap(model.getType()
-            )][schema.relationMap("药材")]!= null){
-                Relation relation = new Relation(model.getName(),schemaMap[schema.relationMap(model.getType()
-                )][schema.relationMap("药材")],model.getHerb());
-                if (relation.getNameB()!=null)
-                    i = modifyMapper.addRelation(relation);
-            }
-            if (schemaMap[schema.relationMap(model.getType()
-            )][schema.relationMap("症状")]!= null){
-                Relation relation = new Relation(model.getName(),schemaMap[schema.relationMap(model.getType()
-                )][schema.relationMap("症状")],model.getSymptom());
-                if (relation.getNameB()!=null)
-                    i = modifyMapper.addRelation(relation);
-            }
-            if (schemaMap[schema.relationMap(model.getType()
-            )][schema.relationMap("功用大类")]!= null){
-                Relation relation = new Relation(model.getName(),schemaMap[schema.relationMap(model.getType()
-                )][schema.relationMap("功用大类")],model.getFunction_large());
-                if (relation.getNameB()!=null)
-                    i = modifyMapper.addRelation(relation);
-            }
-            if (schemaMap[schema.relationMap(model.getType()
-            )][schema.relationMap("功用小类")]!= null){
-                Relation relation = new Relation(model.getName(),schemaMap[schema.relationMap(model.getType()
-                )][schema.relationMap("功用小类")],model.getFunction_small());
-                if (relation.getNameB()!=null)
-                    i = modifyMapper.addRelation(relation);
+            for (String key : schema.getMap().keySet()){
+                if (schemaMap[schema.relationMap(model.getType()
+                )][schema.relationMap(key)]!= null){
+                    Relation relation = new Relation(model.getName(),schemaMap[schema.relationMap(model.getType()
+                    )][schema.relationMap(key)],model.getEntity(key));
+                    if (relation.getNameB()!=null)
+                        i = modifyMapper.addRelation(relation);
+                }
             }
             resultDTO.setCode(i);
             resultDTO.setMsg("success");
@@ -128,5 +96,12 @@ public class ModifyServiceImpl implements ModifyService {
             relationResultDTO.setMsg("success");
         }
         return relationResultDTO;
+    }
+
+    @Override
+    public ResultDTO<Model> deleteEntity(Model model) {
+        ResultDTO<Model> resultDTO = new ResultDTO<>();
+        int i = modifyMapper.deleteEntity(model);
+        return resultDTO;
     }
 }

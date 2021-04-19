@@ -16,4 +16,6 @@ public interface ModifyMapper {
     List<Model> find(String name);
 
     List<Model> findRelation(@Param("relation") Relation relation);
+
+    int deleteEntity(@Param("model") Model model);
 }

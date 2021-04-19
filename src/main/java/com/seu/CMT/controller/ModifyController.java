@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.xml.transform.Result;
 import java.util.List;
 
 @RestController
@@ -55,6 +56,14 @@ public class ModifyController {
         System.out.println(relation);
         ResultDTO<Relation> resultDTO = new ResultDTO<>();
         resultDTO = modifyService.addRelation(relation);
+        return resultDTO;
+    }
+
+    @RequestMapping("/deleteEntity")
+    @ResponseBody
+    public ResultDTO<Model> deleteEntity(@RequestBody Model model){
+        ResultDTO<Model> resultDTO = new ResultDTO<>();
+        resultDTO = modifyService.deleteEntity(model);
         return resultDTO;
     }
 }

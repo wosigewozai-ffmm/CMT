@@ -1,3 +1,20 @@
+function deleteEntity(){
+    var model = {
+        "name": document.getElementById("deleteEntity").value,
+    }
+    $.ajax({
+        url: "/modify/deleteEntity",
+        type: "POST",
+        async: true,
+        contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
+        data: JSON.stringify(model), //将JSON对象转换为JSON字符串
+        dataType: 'json',
+        success: function (data) {
+            alert(data.msg);
+        }
+    })
+}
+
 function addRelationChange(){
     $("#EntityA").find("option").remove();
     $("#EntityB").find("option").remove();

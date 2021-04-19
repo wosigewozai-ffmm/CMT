@@ -62,4 +62,7 @@
         create  (n) - [r:${relation.relation}] -> (m)
     </insert>
 
+    <delete id="deleteEntity">
+        MATCH (n:Model{name:#{model.name}}) DETACH DELETE n
+    </delete>
 </mapper>
