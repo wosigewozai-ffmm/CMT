@@ -206,7 +206,9 @@
     </div>
     <div>
         <h1>插入关系</h1>
-        <select id="EntityA">方剂</select>
+        <select id="EntityA">
+            <option value="方剂">方剂</option>
+        </select>
         <select id="addRelation" onchange="addRelationChange()">
             <option value="主治">主治</option>
             <option value="组成">组成</option>
@@ -214,7 +216,9 @@
             <option value="属于">属于</option>
             <option value="包含">包含</option>
         </select>
-        <select id="EntityB">症状</select>
+        <select id="EntityB">
+            <option value="症状">症状</option>
+        </select>
         <input type="button" id="insertRelation" onclick="insertRelation()" value="Insert"/>
         <br>
         <input id="addEntityA" type="text">
@@ -222,12 +226,40 @@
     </div>
     <div>
         <h1>实体修改</h1>
+        <input id = "entityName_modify" type = "text" placeholder="实体名">
+        <select id="entityType_modify" onchange="selectChange()">
+            <option value="方剂" selected>方剂</option>
+            <option value="症状">症状</option>
+            <option value="药材">药材</option>
+            <option value="功效">功效</option>
+            <option value="功用大类">功用大类</option>
+            <option value="功用小类">功用小类</option>
+        </select>
+        <input type="button" id="modifyEntity" onclick="modifyEntity()" value="Update"/>
+        <br>
+        <input id = "entityEffect_modify" type = "text" placeholder="功效" >
 
+        <input id = "entityPrescription_modify" type = "text" placeholder="方剂">
+        <br>
+        <input id = "entityHerb_modify" type = "text" placeholder="药材">
+
+        <input id = "entitySymptom_modify" type = "text" placeholder="症状">
+        <br>
+        <input id = "entityFunction_Large_modify" type = "text" placeholder="功用大类">
+
+        <input id = "entityFunction_Small_modify" type = "text" placeholder="功用小类">
     </div>
     <div>
         <h1>实体删除</h1>
         <input type = "text" id="deleteEntity">
         <input type = "button" id="delete" onclick="deleteEntity()" value="Delete"/>
+    </div>
+    <div>
+        <h1>关系删除</h1>
+        <input type = "text" id = "deleteEntityA">
+        <input type = "text" id = "deleteRelation">
+        <input type = "text" id = "deleteEntityB">
+        <input type = "button" id="button_deleteRelation" onclick="deleteRelation()" value="Delete"/>
     </div>
 <script src="/modify_files/modify_js.js">
 

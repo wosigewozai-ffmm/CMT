@@ -24,6 +24,9 @@ public class ModifyServiceImpl implements ModifyService {
 
     Schema schema = new Schema();
 
+    public ModifyServiceImpl() throws IOException {
+    }
+
     @Override
     public ResultDTO<ExcelData> addExcel(MultipartFile file) throws IOException {
         ResultDTO<ExcelData> resultDTO = new ResultDTO<>();
@@ -54,7 +57,7 @@ public class ModifyServiceImpl implements ModifyService {
 
     @Override
     public List<Model> getAllPrescription() {
-        List<Model> models = modifyMapper.getAll("prescription");
+        List<Model> models = modifyMapper.getAll("方剂");
         return models;
     }
 
@@ -88,7 +91,7 @@ public class ModifyServiceImpl implements ModifyService {
         ResultDTO<Relation> relationResultDTO = new ResultDTO<>();
         List<Model> relationModels = modifyMapper.findRelation(relation);
         if (relationModels.size()>0){
-            relationResultDTO.setMsg("entity duplicate");
+            relationResultDTO.setMsg("relation duplicate");
             relationResultDTO.setCode(0);
         }else{
             int i = modifyMapper.addRelation(relation);
@@ -102,6 +105,19 @@ public class ModifyServiceImpl implements ModifyService {
     public ResultDTO<Model> deleteEntity(Model model) {
         ResultDTO<Model> resultDTO = new ResultDTO<>();
         int i = modifyMapper.deleteEntity(model);
+        if (i == 1){
+            resultDTO.setMsg("success");
+        }
+        return resultDTO;
+    }
+
+    @Override
+    public ResultDTO<Relation> deleteRelation(Relation relation) {
+        ResultDTO<Relation> resultDTO = new ResultDTO<>();
+        int i = modifyMapper.deleteRelation(relation);
+        if (i == 1){
+            resultDTO.setMsg("success");
+        }
         return resultDTO;
     }
 }

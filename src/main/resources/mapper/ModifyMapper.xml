@@ -59,10 +59,14 @@
 
     <insert id="addRelation">
         match (n:Model{name:#{relation.nameA}}) , (m:Model{name:#{relation.nameB}} )
-        create  (n) - [r:${relation.relation}] -> (m)
+        create  (n) - [${relation.relation}:${relation.relation}{name:"${relation.relation}"}] -> (m)
     </insert>
 
     <delete id="deleteEntity">
         MATCH (n:Model{name:#{model.name}}) DETACH DELETE n
+    </delete>
+    <delete id="deleteRelation">
+        match p=(x)-[r]->(y) where x.name=#{relation.nameA} and y.name=#{relation.nameB} and r.name="${relation.relation}"
+        delete r
     </delete>
 </mapper>

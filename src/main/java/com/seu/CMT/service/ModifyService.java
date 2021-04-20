@@ -14,4 +14,6 @@ public interface ModifyService {
     ResultDTO<Relation> addRelation(Relation relation);
 
     ResultDTO<Model> deleteEntity(Model model);
+
+    ResultDTO<Relation> deleteRelation(Relation relation);
 }

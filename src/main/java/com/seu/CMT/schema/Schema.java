@@ -1,5 +1,7 @@
 package com.seu.CMT.schema;
 
+import org.springframework.core.io.ClassPathResource;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,8 +21,10 @@ public class Schema {
         this.map = map;
     }
 
-    public Schema() {
-        String path = "C:\\Users\\yuhon\\IdeaProjects\\CMT\\target\\classes\\static\\schema\\schemaLog.txt";
+    public Schema() throws IOException {
+        ClassPathResource resource = new ClassPathResource("");
+        String projectPath = resource.getFile().getAbsolutePath()+"\\static\\schema";
+        String path = projectPath+"\\schemaLog.txt";
         File file = new File(path);
         BufferedReader reader = null;
         StringBuffer sbf = new StringBuffer();

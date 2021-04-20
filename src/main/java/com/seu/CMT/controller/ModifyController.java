@@ -29,10 +29,13 @@ public class ModifyController {
         return models;
     }
 
-    @GetMapping("/getAllPrescription")
-    public List<Model> getAllPrescription(){
+    @RequestMapping("/getAllPrescription")
+    @ResponseBody
+    public ResultDTO<Model> getAllPrescription(){
+        ResultDTO<Model> resultDTO = new ResultDTO<>();
         List<Model> models = modifyService.getAllPrescription();
-        return models;
+        resultDTO.setData(models);
+        return resultDTO;
     }
 
     @RequestMapping("/add")
@@ -65,5 +68,13 @@ public class ModifyController {
         ResultDTO<Model> resultDTO = new ResultDTO<>();
         resultDTO = modifyService.deleteEntity(model);
         return resultDTO;
+    }
+
+    @RequestMapping("/deleteRelation")
+    @ResponseBody
+    public ResultDTO<Relation> deleteRelation(@RequestBody Relation relation){
+        ResultDTO<Relation> resultDTO = new ResultDTO<>();
+        resultDTO = modifyService.deleteRelation(relation);
+        return  resultDTO;
     }
 }
