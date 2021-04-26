@@ -20,4 +20,8 @@ public interface ModifyMapper {
     int deleteEntity(@Param("model") Model model);
 
     int deleteRelation(@Param("relation") Relation relation);
+
+    List<Relation> findEntityRelation(@Param("model") Model model);
+
+    int updateEntity(@Param("model") Model model);
 }

@@ -66,7 +66,7 @@ public class ModifyServiceImpl implements ModifyService {
         ResultDTO<Model> resultDTO = new ResultDTO<>();
         List<Model> models = modifyMapper.find(model.getName());
         if (models.size()>0){
-            resultDTO.setMsg("relation duplicate");
+            resultDTO.setMsg("entity duplicate");
             resultDTO.setCode(0);
         }else{
             int i = modifyMapper.add(model);
@@ -107,6 +107,8 @@ public class ModifyServiceImpl implements ModifyService {
         int i = modifyMapper.deleteEntity(model);
         if (i == 1){
             resultDTO.setMsg("success");
+        }else{
+            resultDTO.setMsg("ERROR");
         }
         return resultDTO;
     }
@@ -117,6 +119,77 @@ public class ModifyServiceImpl implements ModifyService {
         int i = modifyMapper.deleteRelation(relation);
         if (i == 1){
             resultDTO.setMsg("success");
+        }else{
+            resultDTO.setMsg("error");
+        }
+        return resultDTO;
+    }
+
+    String searchString =  new String();
+
+    @Override
+    public ResultDTO<Model> searchModifyEntity(Model model) {
+        ResultDTO<Model> resultDTO =  new ResultDTO<>();
+        List<Model> result = modifyMapper.find(model.getName());
+        if (result.size() == 0){
+            resultDTO.setMsg("No entity found");
+        }else {
+            searchString = result.get(0).getName();
+            resultDTO.setData(result);
+        }
+        return resultDTO;
+    }
+
+    @Override
+    public ResultDTO<Model> modifyEntity(Model model) {
+        ResultDTO<Model> resultDTO =  new ResultDTO<>();
+        List<Model> models = modifyMapper.find(model.getName());
+        if ((models.size()>0) && (!model.getName().equals(searchString))){
+            resultDTO.setMsg("实体名已经存在");
+        }else{
+            List<Relation> relations = modifyMapper.findEntityRelation(model);
+            boolean flag = true;
+            String[][] schemaMap = schema.getRelation();
+            for (int i=0;i<relations.size();i++){
+                Relation relation = relations.get(i);
+                if (relation.getNameA().equals(model.getName())){
+                    Model model1 = modifyMapper.find(relation.getNameB()).get(0);
+                    if ((schemaMap[schema.relationMap(model.getType())][schema.relationMap(model1.getType())]!=null)&&(!schemaMap[schema.relationMap(model.getType())][schema.relationMap(model1.getType())].equals(relation.getRelation()))){
+                        flag = false;
+                        resultDTO.setMsg("新类型不合法");
+                        break;
+                    }
+                }else{
+                    Model model1 = modifyMapper.find(relation.getNameA()).get(0);
+                    if ((schemaMap[schema.relationMap(model1.getType())][schema.relationMap(model.getType())]!=null)&&(!schemaMap[schema.relationMap(model1.getType())][schema.relationMap(model.getType())].equals(relation.getRelation()))){
+                        flag = false;
+                        resultDTO.setMsg("新类型不合法");
+                        break;
+                    }
+                }
+            }
+            if (flag){
+                int i = modifyMapper.updateEntity(model);
+                resultDTO.setMsg("success");
+            }
+        }
+        return resultDTO;
+    }
+
+    @Override
+    public ResultDTO<Relation> searchByEntity(Model model) {
+        ResultDTO<Relation> resultDTO = new ResultDTO<>();
+        resultDTO.setData(modifyMapper.findEntityRelation(model));
+        return resultDTO;
+    }
+
+    @Override
+    public ResultDTO<Relation> modifyRelation(Relation relation) {
+        ResultDTO<Relation> resultDTO = new ResultDTO<>();
+        switch (relation.getModifyType()){
+            case "1":
+            case "2":
+            case "3":
         }
         return resultDTO;
     }

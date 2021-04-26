@@ -16,4 +16,12 @@ public interface ModifyService {
     ResultDTO<Model> deleteEntity(Model model);
 
     ResultDTO<Relation> deleteRelation(Relation relation);
+
+    ResultDTO<Model> searchModifyEntity(Model model);
+
+    ResultDTO<Model> modifyEntity(Model model);
+
+    ResultDTO<Relation> searchByEntity(Model model);
+
+    ResultDTO<Relation> modifyRelation(Relation relation);
 }

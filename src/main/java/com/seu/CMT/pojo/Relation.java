@@ -6,7 +6,16 @@ public class Relation {
     private String nameA;
     private String nameB;
     private String relation;
-    private List<Relation> relations;
+    private String modifyType;
+    private List<Relation> resultRelations;
+
+    public String getModifyType() {
+        return modifyType;
+    }
+
+    public void setModifyType(String modifyType) {
+        this.modifyType = modifyType;
+    }
 
     public Relation() {
     }
@@ -41,11 +50,11 @@ public class Relation {
         this.relation = relation;
     }
 
-    public List<Relation> getRelations() {
-        return relations;
+    public List<Relation> getResultRelations() {
+        return resultRelations;
     }
 
-    public void setRelations(List<Relation> Relations) {
-        this.relations = Relations;
+    public void setResultRelations(List<Relation> resultRelations) {
+        this.resultRelations = resultRelations;
     }
 }

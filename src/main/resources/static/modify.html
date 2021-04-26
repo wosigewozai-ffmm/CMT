@@ -152,7 +152,6 @@
         <input type="file" name="filename" id="filename"    />
         <input type="button" id="submit" onclick="imgUpload()" value="submit"/>
     </div>
-
     <div>
         <h1>功效实体增加</h1>
         <input id = "effectName" type = "text" placeholder="功效名">
@@ -227,27 +226,44 @@
     <div>
         <h1>实体修改</h1>
         <input id = "entityName_modify" type = "text" placeholder="实体名">
-        <select id="entityType_modify" onchange="selectChange()">
-            <option value="方剂" selected>方剂</option>
+        <input type="button" id="searchModifyEntity" onclick="searchModifyEntity()" value="Search"/>
+        <label>名称</label>
+        <input id ="entityName_get" type = "text">
+        <label>类型</label>
+        <select id="modifyEntityType">
+            <option value="" selected></option>
+            <option value="方剂">方剂</option>
             <option value="症状">症状</option>
             <option value="药材">药材</option>
             <option value="功效">功效</option>
             <option value="功用大类">功用大类</option>
             <option value="功用小类">功用小类</option>
         </select>
-        <input type="button" id="modifyEntity" onclick="modifyEntity()" value="Update"/>
+        <input type = "button" id="modifyEntity" onclick="modifyEntity()" value = "Update"/>
+    </div>
+    <div>
+        <h1>关系修改</h1>
+        <h2>searchByEntity</h2>
+        <input id = "_searchByEntity">
+        <input type="button" onclick="searchByEntity()" value = "Search">
         <br>
-        <input id = "entityEffect_modify" type = "text" placeholder="功效" >
-
-        <input id = "entityPrescription_modify" type = "text" placeholder="方剂">
+        <table  id ="entityTable" border="1" style="display: none">
+            <tr>
+                <th>主语</th>
+                <th>谓语</th>
+                <th>宾语</th>
+            </tr>
+        </table>
+        <h2>searchByRelation</h2>
+        <input id = "searchByRelation">
         <br>
-        <input id = "entityHerb_modify" type = "text" placeholder="药材">
-
-        <input id = "entitySymptom_modify" type = "text" placeholder="症状">
-        <br>
-        <input id = "entityFunction_Large_modify" type = "text" placeholder="功用大类">
-
-        <input id = "entityFunction_Small_modify" type = "text" placeholder="功用小类">
+        <input id = "relationModifyNameA" disabled = "disabled">
+        <input id = "relationModifyRelation" disabled = "disabled">
+        <input id = "relationModifyNameB" disabled = "disabled">
+        <input type="button" id="modifyNameA" onclick="modifyNameAAvailable()" value="修改主语">
+        <input type="button" id="modifyRelation" onclick="modifyRelationAvailable()" value="修改谓语">
+        <input type="button" id="modifyNameB" onclick="modifyNameBAvailable()" value="修改宾语">
+        <input type="button" id="modifySubmit" onclick="modifyRelation()" value = "submit">
     </div>
     <div>
         <h1>实体删除</h1>

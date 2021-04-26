@@ -21,7 +21,7 @@ public class Model {
     public String getEntity(String type){
         switch (type){
             case "功效":
-                return this.type;
+                return this.effect;
             case "方剂":
                 return this.prescription;
             case "药材":

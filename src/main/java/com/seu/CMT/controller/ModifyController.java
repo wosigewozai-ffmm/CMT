@@ -77,4 +77,36 @@ public class ModifyController {
         resultDTO = modifyService.deleteRelation(relation);
         return  resultDTO;
     }
+
+    @RequestMapping("/searchModifyEntity")
+    @ResponseBody
+    public ResultDTO<Model> searchModifyEntity(@RequestBody Model model){
+        ResultDTO<Model> resultDTO =  new ResultDTO<>();
+        resultDTO = modifyService.searchModifyEntity(model);
+        return resultDTO;
+    }
+
+    @RequestMapping("/modifyEntity")
+    @ResponseBody
+    public ResultDTO<Model> modifyEntity(@RequestBody Model model){
+        ResultDTO<Model> resultDTO = new ResultDTO<>();
+        resultDTO = modifyService.modifyEntity(model);
+        return resultDTO;
+    }
+
+    @RequestMapping("/searchByEntity")
+    @ResponseBody
+    public  ResultDTO<Relation> searchByEntity(@RequestBody Model model){
+        ResultDTO<Relation> resultDTO =  new ResultDTO<>();
+        resultDTO = modifyService.searchByEntity(model);
+        return  resultDTO;
+    }
+
+    @RequestMapping("/modifyRelation")
+    @ResponseBody
+    public  ResultDTO<Relation> modifyRelation(@RequestBody Relation relation){
+        ResultDTO<Relation> resultDTO =  new ResultDTO<>();
+        resultDTO = modifyService.modifyRelation(relation);
+        return  resultDTO;
+    }
 }

@@ -5,7 +5,7 @@
     <!-- 全局参数 -->
     <Properties>
         <Property name="pattern">%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %c{1}:%L -%m%n</Property>
-        <Property name="displayName">film</Property>
+        <Property name="displayName"><CMT></CMT></Property>
     </Properties>
     <Appenders>
         <Console name="console" target="SYSTEM_OUT" follow="true">
@@ -38,7 +38,7 @@
             /> <Logger name="org.apache.tomcat.util.net.NioSelectorPool" level="WARN"
             /> -->
         <Logger name="org.springframework" level="WARN" />
-        <Logger name="com.neu.film" level="DEBUG" />
+        <Logger name="com.neu.CMT" level="DEBUG" />
         <Root level="DEBUG">
             <AppenderRef ref="console"></AppenderRef>
             <AppenderRef ref="error"></AppenderRef>

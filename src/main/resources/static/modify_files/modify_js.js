@@ -1,4 +1,109 @@
+function modifyRelation(){
+    var model = {
+        "nameA": document.getElementById("relationModifyNameA").value,
+        "relation": document.getElementById("relationModifyRelation").value,
+        "nameB": document.getElementById("relationModifyNameB").value,
+        "modifyType" : modify_type
+    }
+    $.ajax({
+        url: "/modify/modifyRelation",
+        type: "POST",
+        async: true,
+        contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
+        data: JSON.stringify(model), //将JSON对象转换为JSON字符串
+        dataType: 'json',
+        success: function (data) {
+            alert(data.msg);
+        }
+    })
+}
+
+var modify_type;
+
+function modifyNameAAvailable(){
+    document.getElementById("relationModifyNameA").disabled = "";
+    document.getElementById("relationModifyRelation").disabled = "disabled";
+    document.getElementById("relationModifyNameB").disabled = "disabled";
+    modify_type=1;
+}
+
+function modifyRelationAvailable(){
+    document.getElementById("relationModifyNameA").disabled = "disabled";
+    document.getElementById("relationModifyRelation").disabled = "";
+    document.getElementById("relationModifyNameB").disabled = "disabled";
+    modify_type=2;
+}
+
+function modifyNameBAvailable(){
+    document.getElementById("relationModifyNameA").disabled = "disabled";
+    document.getElementById("relationModifyRelation").disabled = "disabled";
+    document.getElementById("relationModifyNameB").disabled = "";
+}
+
+function selectRelation(nameA, relation, nameB){
+    document.getElementById("relationModifyNameA").value = nameA;
+    document.getElementById("relationModifyRelation").value = relation;
+    document.getElementById("relationModifyNameB").value = nameB;
+    modify_type=3;
+}
+
+function searchByEntity(){
+    var model={
+        "name":document.getElementById("_searchByEntity").value,
+    }
+    $.ajax({
+        url: "/modify/searchByEntity",
+        type: "POST",
+        async: true,
+        contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
+        data: JSON.stringify(model), //将JSON对象转换为JSON字符串
+        dataType: 'json',
+        success: function (data) {
+            document.getElementById("entityTable").style.display = "";
+            $("#entityTable tr:not(:first)").empty("");
+            for (i = 0; i < data.data.length; i++)
+            {
+                var tr = $("<tr><td>" + data.data[i].nameA + "</td><td>" + data.data[i].relation + "</td><td>" + data.data[i].nameB + "</td><td><a href='#' onclick='selectRelation($(this).closest(\"tr\").find(\"td\").eq(0).text(),$(this).closest(\"tr\").find(\"td\").eq(1).text(),$(this).closest(\"tr\").find(\"td\").eq(2).text());'>select</a></td></tr>\")</tr>");
+                $("#entityTable").append(tr);
+            }
+        }
+    })
+}
+
 function modifyEntity(){
+    var model={
+        "name":document.getElementById("entityName_get").value,
+        "type":document.getElementById("modifyEntityType").value
+    }
+    $.ajax({
+        url: "/modify/modifyEntity",
+        type: "POST",
+        async: true,
+        contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
+        data: JSON.stringify(model), //将JSON对象转换为JSON字符串
+        dataType: 'json',
+        success: function (data) {
+            alert(data.msg);
+        }
+    })
+}
+
+function searchModifyEntity(){
+    var model={
+        "name":document.getElementById("entityName_modify").value
+    }
+    $.ajax({
+        url: "/modify/searchModifyEntity",
+        type: "POST",
+        async: true,
+        contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
+        data: JSON.stringify(model), //将JSON对象转换为JSON字符串
+        dataType: 'json',
+        success: function (data) {
+            document.getElementById("entityName_get").value = data.data[0].name;
+            document.getElementById("modifyEntityType").value = data.data[0].type;
+        }
+    })
 
 }
 function deleteRelation(){
