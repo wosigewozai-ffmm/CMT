@@ -53,6 +53,20 @@ public class ModifyController {
         return resultDTO;
     }
 
+    @RequestMapping("/addExcelEntity")
+    @ResponseBody
+    public ResultDTO<ExcelData> addExcelEntity(@RequestBody ExcelData excelData) throws Exception{
+        ResultDTO<ExcelData> resultDTO= modifyService.addExcelEntity(excelData);
+        return resultDTO;
+    }
+
+    @RequestMapping("/addExcelRelation")
+    @ResponseBody
+    public ResultDTO<ExcelData> addExcelRelation(@RequestBody ExcelData excelData) throws Exception{
+        ResultDTO<ExcelData> resultDTO= modifyService.addExcelRelation(excelData);
+        return resultDTO;
+    }
+
     @RequestMapping("/addRelation")
     @ResponseBody
     public ResultDTO<Relation> addRelation(@RequestBody Relation relation){
@@ -107,6 +121,14 @@ public class ModifyController {
     public  ResultDTO<Relation> modifyRelation(@RequestBody Relation relation){
         ResultDTO<Relation> resultDTO =  new ResultDTO<>();
         resultDTO = modifyService.modifyRelation(relation);
+        return  resultDTO;
+    }
+
+    @RequestMapping("/searchByRelation")
+    @ResponseBody
+    public  ResultDTO<Relation> searchByRelation(@RequestBody Relation relation){
+        ResultDTO<Relation> resultDTO =  new ResultDTO<>();
+        resultDTO = modifyService.searchByRelation(relation);
         return  resultDTO;
     }
 }

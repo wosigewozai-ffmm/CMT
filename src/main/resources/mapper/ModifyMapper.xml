@@ -63,13 +63,24 @@
     <delete id="deleteEntity">
         MATCH (n:Model{name:#{model.name}}) DETACH DELETE n
     </delete>
+
     <delete id="deleteRelation">
         match p=(x)-[r]->(y) where x.name=#{relation.nameA} and y.name=#{relation.nameB} and r.name="${relation.relation}"
         delete r
     </delete>
 
+    <delete id="deleteOldRelation">
+        match p=(x)-[r]->(y) where x.name=#{relation.nameA_old} and y.name=#{relation.nameB_old} and r.name="${relation.relation}"
+        delete r
+    </delete>
+
     <select id="findEntityRelation" resultMap="relationMap">
         match p=(x)-[r]->(y) where x.name="${model.name}" or y.name="${model.name}"
+        return x.name as nameA, r.name as relation, y.name as nameB
+    </select>
+
+    <select id="findRelationRelation" resultMap="relationMap">
+        match p=(x)-[r]->(y) where r.name=#{relation.relation}
         return x.name as nameA, r.name as relation, y.name as nameB
     </select>
 
@@ -79,4 +90,20 @@
         set u.name = #{model.name},u.type = #{model.type}
     </update>
 
+    <update id="updateRelation">
+        match p=(x)-[r]->(y) where x.name="${relation.nameA}" and y.name="${relation.nameB}"
+        set r.name = "${relation.relation}"
+    </update>
+
+    <insert id="addExcelEntity">
+        LOAD CSV WITH HEADERS FROM "file:///${fileName}" as row
+        CREATE(u:Model{name:row.name, type:row.type,effect:row.effect,prescription:row.prescription,herb:row.herb,symptom:row.symptom,function_large:row.function_large,function_small:row.function_small})
+    </insert>
+
+    <insert id="addExcelRelation">
+        LOAD CSV WITH HEADERS FROM "file:///${fileName}" as row
+        MATCH (n:Model{name:row.nameA})
+        MATCH (m:Model{name:row.nameB})
+        MERGE (n)-[${relation}:${relation}{name:"${relation}"}  ]->(m)
+    </insert>
 </mapper>

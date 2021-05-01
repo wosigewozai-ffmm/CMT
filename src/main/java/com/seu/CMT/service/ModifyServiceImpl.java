@@ -186,10 +186,112 @@ public class ModifyServiceImpl implements ModifyService {
     @Override
     public ResultDTO<Relation> modifyRelation(Relation relation) {
         ResultDTO<Relation> resultDTO = new ResultDTO<>();
+        String[][] schemaMap = schema.getRelation();
         switch (relation.getModifyType()){
             case "1":
+                if (modifyMapper.find(relation.getNameA()).size() > 0 ){
+                    Model modelA = modifyMapper.find(relation.getNameA()).get(0);
+                    int typeA = schema.relationMap(modelA.getType());
+                    Model modelB = modifyMapper.find(relation.getNameB_old()).get(0);
+                    int typeB = schema.relationMap(modelB.getType());
+                    if (schemaMap[typeA][typeB].equals(relation.getRelation_old())){
+                        int i = modifyMapper.deleteOldRelation(relation);
+                        if (i==0){
+                            resultDTO.setMsg("删除关系失败");
+                        }
+                        i = modifyMapper.addRelation(relation);
+                        if (i==0){
+                            resultDTO.setMsg("新增关系失败");
+                        }else{
+                            resultDTO.setMsg("更新成功");
+                        }
+                    }else{
+                        resultDTO.setMsg("新关系不合法");
+                    }
+                }else{
+                    resultDTO.setMsg("新实体不存在");
+                }
+                break;
             case "2":
+                Model modelA = modifyMapper.find(relation.getNameA_old()).get(0);
+                int typeA = schema.relationMap(modelA.getType());
+                Model modelB = modifyMapper.find(relation.getNameB_old()).get(0);
+                int typeB = schema.relationMap(modelB.getType());
+                if (schemaMap[typeA][typeB].equals(relation.getRelation())){
+                    int i =modifyMapper.updateRelation(relation);
+                    if (i == 0){
+                        resultDTO.setMsg("修改失败");
+                    }else{
+                        resultDTO.setMsg("修改成功");
+                    }
+                }else{
+                    resultDTO.setMsg("新关系不合法");
+                }
+                break;
             case "3":
+                if (modifyMapper.find(relation.getNameB()).size() > 0 ){
+                    modelA = modifyMapper.find(relation.getNameA_old()).get(0);
+                    typeA = schema.relationMap(modelA.getType());
+                    modelB = modifyMapper.find(relation.getNameB()).get(0);
+                    typeB = schema.relationMap(modelB.getType());
+                    if (schemaMap[typeA][typeB].equals(relation.getRelation_old())){
+                        int i = modifyMapper.deleteOldRelation(relation);
+                        if (i==0){
+                            resultDTO.setMsg("删除关系失败");
+                        }
+                        i = modifyMapper.addRelation(relation);
+                        if (i==0){
+                            resultDTO.setMsg("新增关系失败");
+                        }else{
+                            resultDTO.setMsg("更新成功");
+                        }
+                    }else{
+                        resultDTO.setMsg("新关系不合法");
+                    }
+                }else{
+                    resultDTO.setMsg("新实体不存在");
+                }
+                break;
+        }
+
+        return resultDTO;
+    }
+
+    @Override
+    public ResultDTO<Relation> searchByRelation(Relation relation) {
+        ResultDTO<Relation> resultDTO =  new ResultDTO<>();
+        resultDTO.setData(modifyMapper.findRelationRelation(relation));
+        return resultDTO;
+    }
+
+    @Override
+    public ResultDTO<ExcelData> addExcelEntity(ExcelData excelData) {
+        ResultDTO<ExcelData> resultDTO = new ResultDTO<>();
+        String fileName = new String();
+        for (int i = excelData.getName().lastIndexOf("\\") + 1; i < excelData.getName().length();i++){
+            fileName += excelData.getName().charAt(i);
+        }
+        int i = modifyMapper.addExcelEntity(fileName);
+        if (i==1)
+            resultDTO.setMsg("success");
+        else{
+            resultDTO.setMsg("error");
+        }
+        return resultDTO;
+    }
+
+    @Override
+    public ResultDTO<ExcelData> addExcelRelation(ExcelData excelData) {
+        ResultDTO<ExcelData> resultDTO = new ResultDTO<>();
+        String fileName = new String();
+        for (int i = excelData.getName().lastIndexOf("\\") + 1; i < excelData.getName().length();i++){
+            fileName += excelData.getName().charAt(i);
+        }
+        int i = modifyMapper.addExcelRelation(fileName, excelData.getRelation());
+        if (i==1)
+            resultDTO.setMsg("success");
+        else{
+            resultDTO.setMsg("error");
         }
         return resultDTO;
     }

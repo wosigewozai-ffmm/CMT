@@ -151,7 +151,18 @@
         <h1>excel upload</h1>
         <input type="file" name="filename" id="filename"    />
         <input type="button" id="submit" onclick="imgUpload()" value="submit"/>
+        <input type="button" id="addExcelEntity_" onclick="addExcelEntity()" value="addEntity"/>
+        <select id="excelRelationType">
+            <option value="主治">主治</option>
+            <option value="组成">组成</option>
+            <option value="具有">具有</option>
+            <option value="属于">属于</option>
+            <option value="包含">包含</option>
+        </select>
+        <input type="button" id="addExcelRelation_" onclick="addExcelRelation()" value="addRelation"/>
+
     </div>
+    <!--
     <div>
         <h1>功效实体增加</h1>
         <input id = "effectName" type = "text" placeholder="功效名">
@@ -178,6 +189,7 @@
         <input id = "effectName_hasEffect" type = "text" placeholder="功效名">
         <input type="button" id="insertHasEffect" onclick="addHasEffect()" value="Insert"/>
     </div>
+    -->
     <div>
         <h1>插入实体</h1>
         <input id = "entityName" type = "text" placeholder="实体名">
@@ -247,7 +259,7 @@
         <input id = "_searchByEntity">
         <input type="button" onclick="searchByEntity()" value = "Search">
         <br>
-        <table  id ="entityTable" border="1" style="display: none">
+        <table  id ="entityTable" border="1" style="display: none" width = "400">
             <tr>
                 <th>主语</th>
                 <th>谓语</th>
@@ -255,8 +267,10 @@
             </tr>
         </table>
         <h2>searchByRelation</h2>
-        <input id = "searchByRelation">
+        <input id = "searchByRelationRelation" placeholder="谓语">
+        <input type="button" onclick="searchByRelation()" value = "Search">
         <br>
+        <div>
         <input id = "relationModifyNameA" disabled = "disabled">
         <input id = "relationModifyRelation" disabled = "disabled">
         <input id = "relationModifyNameB" disabled = "disabled">
@@ -264,6 +278,7 @@
         <input type="button" id="modifyRelation" onclick="modifyRelationAvailable()" value="修改谓语">
         <input type="button" id="modifyNameB" onclick="modifyNameBAvailable()" value="修改宾语">
         <input type="button" id="modifySubmit" onclick="modifyRelation()" value = "submit">
+        </div>
     </div>
     <div>
         <h1>实体删除</h1>
@@ -276,6 +291,26 @@
         <input type = "text" id = "deleteRelation">
         <input type = "text" id = "deleteEntityB">
         <input type = "button" id="button_deleteRelation" onclick="deleteRelation()" value="Delete"/>
+    </div>
+    <div>
+        <h1>相关推荐</h1>
+        <lable>麻黄汤</lable>
+        <br>
+        <table id = "prefer" border="1" width = "400">
+            <th>name</th>
+            <tr>
+                <td>止咳散</td>
+                <td><a href='#'>相关</a></td>
+            </tr>
+            <tr>
+                <td>桂枝汤</td>
+                <td><a href='#'>相关</a></td>
+            </tr>
+            <tr>
+                <td>香苏散</td>
+                <td><a href='#'>相关</a></td>
+            </tr>
+        </table>
     </div>
 <script src="/modify_files/modify_js.js">
 

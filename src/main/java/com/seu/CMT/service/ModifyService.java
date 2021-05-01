@@ -24,4 +24,10 @@ public interface ModifyService {
     ResultDTO<Relation> searchByEntity(Model model);
 
     ResultDTO<Relation> modifyRelation(Relation relation);
+
+    ResultDTO<Relation> searchByRelation(Relation relation);
+
+    ResultDTO<ExcelData> addExcelEntity(ExcelData excelData);
+
+    ResultDTO<ExcelData> addExcelRelation(ExcelData excelData);
 }

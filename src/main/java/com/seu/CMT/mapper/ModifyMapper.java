@@ -24,4 +24,14 @@ public interface ModifyMapper {
     List<Relation> findEntityRelation(@Param("model") Model model);
 
     int updateEntity(@Param("model") Model model);
+
+    int updateRelation(@Param("relation") Relation relation);
+
+    List<Relation> findRelationRelation(@Param("relation") Relation relation);
+
+    int deleteOldRelation(@Param("relation") Relation relation);
+
+    int addExcelEntity(@Param("fileName") String fileName);
+
+    int addExcelRelation(@Param("fileName") String fileName, @Param("relation") String relation);
 }

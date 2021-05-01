@@ -1,12 +1,10 @@
-function modifyRelation(){
+function addExcelRelation(){
     var model = {
-        "nameA": document.getElementById("relationModifyNameA").value,
-        "relation": document.getElementById("relationModifyRelation").value,
-        "nameB": document.getElementById("relationModifyNameB").value,
-        "modifyType" : modify_type
+        "name" : document.getElementById("filename").value,
+        "relation":document.getElementById("excelRelationType").value,
     }
     $.ajax({
-        url: "/modify/modifyRelation",
+        url: "/modify/addExcelRelation",
         type: "POST",
         async: true,
         contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
@@ -18,33 +16,102 @@ function modifyRelation(){
     })
 }
 
-var modify_type;
+function addExcelEntity(){
+    var model = {
+        "name" : document.getElementById("filename").value,
+    }
+    $.ajax({
+        url: "/modify/addExcelEntity",
+        type: "POST",
+        async: true,
+        contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
+        data: JSON.stringify(model), //将JSON对象转换为JSON字符串
+        dataType: 'json',
+        success: function (data) {
+            alert(data.msg);
+        }
+    })
+}
+
+function searchByRelation(){
+    var model = {
+        "relation": document.getElementById("searchByRelationRelation").value,
+    }
+    $.ajax({
+        url: "/modify/searchByRelation",
+        type: "POST",
+        async: true,
+        contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
+        data: JSON.stringify(model), //将JSON对象转换为JSON字符串
+        dataType: 'json',
+        success: function (data) {
+            document.getElementById("entityTable").style.display = "";
+            $("#entityTable tr:not(:first)").empty("");
+            for (i = 0; i < data.data.length; i++)
+            {
+                var tr = $("<tr><td>" + data.data[i].nameA + "</td><td>" + data.data[i].relation + "</td><td>" + data.data[i].nameB + "</td><td><a href='#' onclick='selectRelation($(this).closest(\"tr\").find(\"td\").eq(0).text(),$(this).closest(\"tr\").find(\"td\").eq(1).text(),$(this).closest(\"tr\").find(\"td\").eq(2).text());'>select</a></td></tr>\")</tr>");
+                $("#entityTable").append(tr);
+            }
+        }
+    })
+}
+
+var modifyRelationModel= {
+    "nameA_old": "",
+    "relation_old": "",
+    "nameB_old": "",
+    "nameA": "",
+    "relation": "",
+    "nameB":"",
+    "modifyType" : ""
+}
+
+function modifyRelation(){
+    modifyRelationModel.nameA = document.getElementById("relationModifyNameA").value;
+    modifyRelationModel.relation = document.getElementById("relationModifyRelation").value;
+    modifyRelationModel.nameB = document.getElementById("relationModifyNameB").value;
+
+    $.ajax({
+        url: "/modify/modifyRelation",
+        type: "POST",
+        async: true,
+        contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
+        data: JSON.stringify(modifyRelationModel), //将JSON对象转换为JSON字符串
+        dataType: 'json',
+        success: function (data) {
+            alert(data.msg);
+        }
+    })
+}
 
 function modifyNameAAvailable(){
     document.getElementById("relationModifyNameA").disabled = "";
     document.getElementById("relationModifyRelation").disabled = "disabled";
     document.getElementById("relationModifyNameB").disabled = "disabled";
-    modify_type=1;
+    modifyRelationModel.modifyType=1;
 }
 
 function modifyRelationAvailable(){
     document.getElementById("relationModifyNameA").disabled = "disabled";
     document.getElementById("relationModifyRelation").disabled = "";
     document.getElementById("relationModifyNameB").disabled = "disabled";
-    modify_type=2;
+    modifyRelationModel.modifyType=2;
 }
 
 function modifyNameBAvailable(){
     document.getElementById("relationModifyNameA").disabled = "disabled";
     document.getElementById("relationModifyRelation").disabled = "disabled";
     document.getElementById("relationModifyNameB").disabled = "";
+    modifyRelationModel.modifyType  =3;
 }
 
 function selectRelation(nameA, relation, nameB){
+    modifyRelationModel.nameA_old=nameA;
+    modifyRelationModel.relation_old=relation;
+    modifyRelationModel.nameB_old=nameB;
     document.getElementById("relationModifyNameA").value = nameA;
     document.getElementById("relationModifyRelation").value = relation;
     document.getElementById("relationModifyNameB").value = nameB;
-    modify_type=3;
 }
 
 function searchByEntity(){
