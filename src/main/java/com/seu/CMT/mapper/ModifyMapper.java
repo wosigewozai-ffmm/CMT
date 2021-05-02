@@ -4,6 +4,7 @@ import com.seu.CMT.pojo.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ModifyMapper {
 
@@ -34,4 +35,10 @@ public interface ModifyMapper {
     int addExcelEntity(@Param("fileName") String fileName);
 
     int addExcelRelation(@Param("fileName") String fileName, @Param("relation") String relation);
+
+    void updateStrengthRelation(@Param("relation") Relation relation);
+
+    List<Relation> findStrengthRelation(@Param("relation") Relation relation);
+
+    void addStrengthRelation(@Param("relation") Relation relation);
 }

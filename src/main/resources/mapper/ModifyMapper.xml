@@ -9,10 +9,18 @@
         <result property="nameA" column="nameA"/>
         <result property="relation" column="relation"/>
         <result property="nameB" column="nameB"/>
+        <result property="nameA_old" column="nameA_old"/>
+        <result property="relation_old" column="relation_old"/>
+        <result property="nameB_old" column="nameB_old"/>
+        <result property="ties" column="ties"/>
         <collection property="resultRelations" ofType="com.seu.CMT.pojo.Relation">
             <result property="nameA" column="nameA1"/>
             <result property="relation" column="relation1"/>
-            <result property="nameB" column="nameB"/>
+            <result property="nameB" column="nameB1"/>
+            <result property="nameA_old" column="nameA_old1"/>
+            <result property="relation_old" column="relation_old1"/>
+            <result property="nameB_old" column="nameB_old1"/>
+            <result property="ties" column="ties1"/>
         </collection>
     </resultMap>
 
@@ -60,6 +68,11 @@
         create  (n) - [${relation.relation}:${relation.relation}{name:"${relation.relation}"}] -> (m)
     </insert>
 
+    <insert id="addStrengthRelation">
+        match (n:Model{name:#{relation.nameA}}) , (m:Model{name:#{relation.nameB}} )
+        create  (n) - [${relation.relation}:${relation.relation}{name:"ties",ties: 1 }] -> (m)
+    </insert>
+
     <delete id="deleteEntity">
         MATCH (n:Model{name:#{model.name}}) DETACH DELETE n
     </delete>
@@ -75,13 +88,18 @@
     </delete>
 
     <select id="findEntityRelation" resultMap="relationMap">
-        match p=(x)-[r]->(y) where x.name="${model.name}" or y.name="${model.name}"
+        match p=(x)-[r]->(y) where (x.name="${model.name}" or y.name="${model.name}") and (r.name <!CDATA[<>]]> "ties")
         return x.name as nameA, r.name as relation, y.name as nameB
     </select>
 
     <select id="findRelationRelation" resultMap="relationMap">
         match p=(x)-[r]->(y) where r.name=#{relation.relation}
         return x.name as nameA, r.name as relation, y.name as nameB
+    </select>
+
+    <select id="findStrengthRelation" resultMap="relationMap">
+        match p=(x)-[r]->(y) where x.name="${relation.nameA}" and y.name="${relation.nameB}"  and r.name="ties"
+        return x.name as nameA, r.name as relation, y.name as nameB, r.ties as ties
     </select>
 
     <update id="updateEntity">
@@ -91,8 +109,13 @@
     </update>
 
     <update id="updateRelation">
-        match p=(x)-[r]->(y) where x.name="${relation.nameA}" and y.name="${relation.nameB}"
+        match p=(x)-[r]->(y) where x.name="${relation.nameA}" and y.name="${relation.nameB}" and r.name="${relation.relation_old}"
         set r.name = "${relation.relation}"
+    </update>
+
+    <update id="updateStrengthRelation">
+        match p=(x)-[r]->(y) where x.name="${relation.nameA}" and y.name="${relation.nameB}" and r.name = "ties"
+        set r.ties = ${relation.ties}
     </update>
 
     <insert id="addExcelEntity">

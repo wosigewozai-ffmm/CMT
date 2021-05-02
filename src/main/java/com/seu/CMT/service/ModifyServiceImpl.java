@@ -295,4 +295,20 @@ public class ModifyServiceImpl implements ModifyService {
         }
         return resultDTO;
     }
+
+    @Override
+    public ResultDTO<Relation> entityStrength(Relation relation) {
+        ResultDTO<Relation> resultDTO = new ResultDTO<>();
+        //查询关系是否存在
+        if (modifyMapper.findStrengthRelation(relation).size()>0){
+            //如果存在，update+1
+            Relation newRelation = modifyMapper.findStrengthRelation(relation).get(0);
+            newRelation.setTies(newRelation.getTies() + 1);
+            modifyMapper.updateStrengthRelation(newRelation);
+        }else{
+            //不存在，新增关系
+            modifyMapper.addStrengthRelation(relation);
+        }
+        return resultDTO;
+    }
 }

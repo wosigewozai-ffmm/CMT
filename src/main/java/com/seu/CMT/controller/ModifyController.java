@@ -131,4 +131,12 @@ public class ModifyController {
         resultDTO = modifyService.searchByRelation(relation);
         return  resultDTO;
     }
+
+    @RequestMapping("/entityStrength")
+    @ResponseBody
+    public ResultDTO<Relation> entityStrength(@RequestBody Relation relation){
+        ResultDTO<Relation> resultDTO = new ResultDTO<>();
+        resultDTO = modifyService.entityStrength(relation);
+        return resultDTO;
+    }
 }

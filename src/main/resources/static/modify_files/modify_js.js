@@ -1,3 +1,22 @@
+function strength(strenthB){
+    var model ={
+        "nameA":"麻黄汤",
+        "nameB":strenthB,
+        "relation": "ties"
+    }
+    $.ajax({
+        url: "/modify/entityStrength",
+        type: "POST",
+        async: true,
+        contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
+        data: JSON.stringify(model), //将JSON对象转换为JSON字符串
+        dataType: 'json',
+        success: function (data) {
+            alert(data.msg);
+        }
+    })
+}
+
 function addExcelRelation(){
     var model = {
         "name" : document.getElementById("filename").value,

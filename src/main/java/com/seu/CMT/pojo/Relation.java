@@ -8,6 +8,15 @@ public class Relation {
     private String relation;
     private String nameA_old;
     private String nameB_old;
+    private  int ties;
+
+    public int getTies() {
+        return ties;
+    }
+
+    public void setTies(int ties) {
+        this.ties = ties;
+    }
 
     public String getNameA_old() {
         return nameA_old;
