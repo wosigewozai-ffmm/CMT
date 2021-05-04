@@ -1,3 +1,23 @@
+function selectFunction(func){
+    switch (func){
+        case "add":
+            document.getElementById("modify_add").style.display = "";
+            document.getElementById("modify_modify").style.display = "none";
+            document.getElementById("modify_delete").style.display = "none";
+            break;
+        case "modify":
+            document.getElementById("modify_add").style.display = "none";
+            document.getElementById("modify_modify").style.display = "";
+            document.getElementById("modify_delete").style.display = "none";
+            break;
+        case "delete":
+            document.getElementById("modify_add").style.display = "none";
+            document.getElementById("modify_modify").style.display = "none";
+            document.getElementById("modify_delete").style.display = "";
+            break;
+    }
+}
+
 function strength(strenthB){
     var model ={
         "nameA":"麻黄汤",

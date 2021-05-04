@@ -88,7 +88,7 @@
     </delete>
 
     <select id="findEntityRelation" resultMap="relationMap">
-        match p=(x)-[r]->(y) where (x.name="${model.name}" or y.name="${model.name}") and (r.name <!CDATA[<>]]> "ties")
+        match p=(x)-[r]->(y) where (x.name="${model.name}" or y.name="${model.name}") and (r.name <![CDATA[ <> ]]> "ties")
         return x.name as nameA, r.name as relation, y.name as nameB
     </select>
 
