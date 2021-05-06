@@ -147,190 +147,223 @@
         <div class="pulldown-bg"></div>
     </div>
 </div>
-    <div id = "modify_functionSelect">
-        <input type="button" id="selectAdd_" onclick="selectFunction('add')" value="数据添加"/>
-        <br>
-        <input type="button" id="selectModify_" onclick="selectFunction('modify')" value="数据修改"/>
-        <br>
-        <input type="button" id="selectDelete_" onclick="selectFunction('delete')" value="数据删除"/>
-        <br>
-    </div>
-    <div id = "modify_add" style="display: none">
-    <div id="upload" class="boxAdd_1">
-        <h1>excel upload</h1>
-        <input type="file" name="filename" id="filename"    />
-        <input type="button" id="submit" onclick="imgUpload()" value="submit"/>
-        <input type="button" id="addExcelEntity_" onclick="addExcelEntity()" value="addEntity"/>
-        <select id="excelRelationType">
-            <option value="主治">主治</option>
-            <option value="组成">组成</option>
-            <option value="具有">具有</option>
-            <option value="属于">属于</option>
-            <option value="包含">包含</option>
-        </select>
-        <input type="button" id="addExcelRelation_" onclick="addExcelRelation()" value="addRelation"/>
-
-    </div>
-    <!--
     <div>
-        <h1>功效实体增加</h1>
-        <input id = "effectName" type = "text" placeholder="功效名">
-        <input type="button" id="insertEffect" onclick="addEffect()" value="Insert"/>
-        <a href="/modify/getAllEffect" class="center">
-
-            <button>show All Effect</button>
-
-        </a>
+        <div id = "modify_functionSelect">
+            <input type="button" class = "function_bar" id="selectIntro_" onclick="selectFunction('intro')" value="功能简介"/>
+            <br>
+            <input type="button" class = "function_bar" id="selectAdd_" onclick="selectFunction('add')" value="数据添加"/>
+            <br>
+            <input type="button" class = "function_bar" id="selectModify_" onclick="selectFunction('modify')" value="数据修改"/>
+            <br>
+            <input type="button" class = "function_bar" id="selectDelete_" onclick="selectFunction('delete')" value="数据删除"/>
+            <br>
+        </div>
     </div>
     <div>
-        <h1>药方实体增加</h1>
-        <input id = "prescriptionName" type = "text" placeholder="药方名">
-        <input type="button" id="insert" onclick="addPrescription()" value="Insert"/>
-        <a href="/modify/getAllPrescription" class="center">
+        <div id = "modify_intro" class = "boxIntro">
+            <div class = "boxIntro_1">
+               <h1>这里是中药方数据库数据修改的页面</h1>
+               <p>本页面共提供数据添加，数据修改和数据删除三个功能</p>
+           </div>
+            <div class = "boxIntro_2">
+                <h1>中药方数据添加功能</h1>
+                <p>本模块提供提供excel批量插入功能，单个实体插入功能，单条关系插入功能</p>
+                <p>使用excel批量插入功能请使用CSV格式的UTF8编码格式的excel</p>
+                <p>使用实体插入功能时可以填写相关的实体，会自动关联相关实体，也可以留空</p>
+                <p>使用关系插入功能，请先选择要插入关系的谓语，根据谓语选择相应的主语和宾语后，填入主谓宾具体值</p>
+            </div>
+            <div class = "boxIntro_3">
+                <h1>中药方数据修改功能</h1>
+                <p>本模块提供实体修改和关系修改两个功能</p>
+                <p>实体修改功能先根据实体名查询得到实体相关信息，支持修改实体名字和实体类型</p>
+                <p>关系修改功能支持通过实体或者关系名查询相关功能，通过选择查询结果中的关系，修改关系中的主谓宾中的一项</p>
+            </div>
+            <div class = "boxIntro_4">
+                <h1>中药方数据删除功能</h1>
+                <p>本模块提供实体删除和关系删除两个功能</p>
+                <p>实体删除功能在输入需要删除的实体名后会删除实体及其相关的关系边</p>
+                <p>关系删除功能仅删除输入的主谓宾关系中的谓语关系边，对实体不做修改</p>
+            </div>
+        </div>
+        <div id = "modify_add" class = "boxAdd"style="display:none">
+        <div id="upload" class="boxAdd_1">
+            <h1>excel upload</h1>
+            <input type="file" name="filename" id="filename"    />
+            <input type="button" id="submit" onclick="imgUpload()" value="submit"/>
+            <input type="button" id="addExcelEntity_" onclick="addExcelEntity()" value="addEntity"/>
+            <select id="excelRelationType">
+                <option value="主治">主治</option>
+                <option value="组成">组成</option>
+                <option value="具有">具有</option>
+                <option value="属于">属于</option>
+                <option value="包含">包含</option>
+            </select>
+            <input type="button" id="addExcelRelation_" onclick="addExcelRelation()" value="addRelation"/>
 
-            <button>show All Prescription</button>
+        </div>
+        <!--
+        <div>
+            <h1>功效实体增加</h1>
+            <input id = "effectName" type = "text" placeholder="功效名">
+            <input type="button" id="insertEffect" onclick="addEffect()" value="Insert"/>
+            <a href="/modify/getAllEffect" class="center">
 
-        </a>
-    </div>
-    <div>
-        <h1>增加药效关系</h1>
-        <input id = "prescriptionName_hasEffect" type = "text" placeholder="药方名">
-        <input id = "effectName_hasEffect" type = "text" placeholder="功效名">
-        <input type="button" id="insertHasEffect" onclick="addHasEffect()" value="Insert"/>
-    </div>
-    -->
-    <div class = "boxAdd_2">
-        <h1>插入实体</h1>
-        <input id = "entityName" type = "text" placeholder="实体名">
-        <select id="entityType" onchange="selectChange()">
-            <option value="方剂" selected>方剂</option>
-            <option value="症状">症状</option>
-            <option value="药材">药材</option>
-            <option value="功效">功效</option>
-            <option value="功用大类">功用大类</option>
-            <option value="功用小类">功用小类</option>
-        </select>
-        <input type="button" id="addEntity" onclick="addEntity()" value="Insert"/>
-        <br>
-        <input id = "entityEffect" type = "text" placeholder="功效" >
+                <button>show All Effect</button>
 
-        <input id = "entityPrescription" type = "text" placeholder="方剂">
-        <br>
-        <input id = "entityHerb" type = "text" placeholder="药材">
+            </a>
+        </div>
+        <div>
+            <h1>药方实体增加</h1>
+            <input id = "prescriptionName" type = "text" placeholder="药方名">
+            <input type="button" id="insert" onclick="addPrescription()" value="Insert"/>
+            <a href="/modify/getAllPrescription" class="center">
 
-        <input id = "entitySymptom" type = "text" placeholder="症状">
-        <br>
-        <input id = "entityFunction_Large" type = "text" placeholder="功用大类">
+                <button>show All Prescription</button>
 
-        <input id = "entityFunction_Small" type = "text" placeholder="功用小类">
-    </div>
-    <div class = "boxAdd_3">
-        <h1>插入关系</h1>
-        <select id="EntityA">
-            <option value="方剂">方剂</option>
-        </select>
-        <select id="addRelation" onchange="addRelationChange()">
-            <option value="主治">主治</option>
-            <option value="组成">组成</option>
-            <option value="具有">具有</option>
-            <option value="属于">属于</option>
-            <option value="包含">包含</option>
-        </select>
-        <select id="EntityB">
-            <option value="症状">症状</option>
-        </select>
-        <input type="button" id="insertRelation" onclick="insertRelation()" value="Insert"/>
-        <br>
-        <input id="addEntityA" type="text">
-        <input id="addEntityB" type="text">
-    </div>
-    </div>
-    <div id = "modify_modify" style = "display:none">
-        <div class = "boxModify_1">
-            <h1>实体修改</h1>
-            <input id = "entityName_modify" type = "text" placeholder="实体名">
-            <input type="button" id="searchModifyEntity" onclick="searchModifyEntity()" value="Search"/>
-            <br>
-            <br>
-            <br>
-            <label>名称</label>
-            <input id ="entityName_get" type = "text">
-            <label>类型</label>
-            <select id="modifyEntityType">
-                <option value="" selected></option>
-                <option value="方剂">方剂</option>
+            </a>
+        </div>
+        <div>
+            <h1>增加药效关系</h1>
+            <input id = "prescriptionName_hasEffect" type = "text" placeholder="药方名">
+            <input id = "effectName_hasEffect" type = "text" placeholder="功效名">
+            <input type="button" id="insertHasEffect" onclick="addHasEffect()" value="Insert"/>
+        </div>
+        -->
+        <div class = "boxAdd_2">
+            <h1>插入实体</h1>
+            <input id = "entityName" type = "text" placeholder="实体名">
+            <select id="entityType" onchange="selectChange()">
+                <option value="方剂" selected>方剂</option>
                 <option value="症状">症状</option>
                 <option value="药材">药材</option>
                 <option value="功效">功效</option>
                 <option value="功用大类">功用大类</option>
                 <option value="功用小类">功用小类</option>
             </select>
-            <input type = "button" id="modifyEntity" onclick="modifyEntity()" value = "Update"/>
+            <input type="button" id="addEntity" onclick="addEntity()" value="Insert"/>
+            <br>
+            <input id = "entityEffect" type = "text" placeholder="功效" >
+
+            <input id = "entityPrescription" type = "text" placeholder="方剂">
+            <br>
+            <input id = "entityHerb" type = "text" placeholder="药材">
+
+            <input id = "entitySymptom" type = "text" placeholder="症状">
+            <br>
+            <input id = "entityFunction_Large" type = "text" placeholder="功用大类">
+
+            <input id = "entityFunction_Small" type = "text" placeholder="功用小类">
         </div>
-        <div class="boxModify_2">
-            <h1>关系修改</h1>
-            <h2>searchByEntity</h2>
-            <input id = "_searchByEntity">
-            <input type="button" onclick="searchByEntity()" value = "Search">
+        <div class = "boxAdd_3">
+            <h1>插入关系</h1>
+            <select id="EntityA">
+                <option value="方剂">方剂</option>
+            </select>
+            <select id="addRelation" onchange="addRelationChange()">
+                <option value="主治">主治</option>
+                <option value="组成">组成</option>
+                <option value="具有">具有</option>
+                <option value="属于">属于</option>
+                <option value="包含">包含</option>
+            </select>
+            <select id="EntityB">
+                <option value="症状">症状</option>
+            </select>
+            <input type="button" id="insertRelation" onclick="insertRelation()" value="Insert"/>
+            <br>
+            <input id="addEntityA" type="text">
+            <input id="addEntityB" type="text">
         </div>
-        <div class="boxModify_3">
-            <h2>searchByRelation</h2>
-            <input id = "searchByRelationRelation" placeholder="谓语">
-            <input type="button" onclick="searchByRelation()" value = "Search">
         </div>
-        <div class="boxModify_4">
-            <table  id ="entityTable" border="1" style="display: none" width = "400">
+        <div id = "modify_modify" style = "display:none">
+            <div class = "boxModify_1">
+                <h1>实体修改</h1>
+                <input id = "entityName_modify" type = "text" placeholder="实体名">
+                <input type="button" id="searchModifyEntity" onclick="searchModifyEntity()" value="Search"/>
+                <br>
+                <br>
+                <br>
+                <label>名称</label>
+                <input id ="entityName_get" type = "text">
+                <label>类型</label>
+                <select id="modifyEntityType">
+                    <option value="" selected></option>
+                    <option value="方剂">方剂</option>
+                    <option value="症状">症状</option>
+                    <option value="药材">药材</option>
+                    <option value="功效">功效</option>
+                    <option value="功用大类">功用大类</option>
+                    <option value="功用小类">功用小类</option>
+                </select>
+                <input type = "button" id="modifyEntity" onclick="modifyEntity()" value = "Update"/>
+            </div>
+            <div class="boxModify_2">
+                <h1>关系修改</h1>
+                <h2>searchByEntity</h2>
+                <input id = "_searchByEntity">
+                <input type="button" onclick="searchByEntity()" value = "Search">
+            </div>
+            <div class="boxModify_3">
+                <h2>searchByRelation</h2>
+                <input id = "searchByRelationRelation" placeholder="谓语">
+                <input type="button" onclick="searchByRelation()" value = "Search">
+            </div>
+            <div class="boxModify_4">
+                <table  id ="entityTable" border="1" style="display: none" width = "400">
+                    <tr>
+                        <th>主语</th>
+                        <th>谓语</th>
+                        <th>宾语</th>
+                    </tr>
+                </table>
+            </div>
+            <div  class="boxModify_5">
+                <input id = "relationModifyNameA" disabled = "disabled">
+                <input id = "relationModifyRelation" disabled = "disabled">
+                <input id = "relationModifyNameB" disabled = "disabled">
+                <br>
+                <input type="button" id="modifyNameA" onclick="modifyNameAAvailable()" value="修改主语">
+                <input type="button" id="modifyRelation" onclick="modifyRelationAvailable()" value="修改谓语">
+                <input type="button" id="modifyNameB" onclick="modifyNameBAvailable()" value="修改宾语">
+                <br>
+                <input type="button" id="modifySubmit" onclick="modifyRelation()" value = "submit">
+            </div>
+
+        </div>
+        <div id = "modify_delete" style = "display: none">
+            <div class="boxDelete_1">
+                <h1>实体删除</h1>
+                <input type = "text" id="deleteEntity">
+                <input type = "button" id="delete" onclick="deleteEntity()" value="Delete"/>
+            </div>
+            <div class="boxDelete_2">
+                <h1>关系删除</h1>
+                <input type = "text" id = "deleteEntityA">
+                <input type = "text" id = "deleteRelation">
+                <input type = "text" id = "deleteEntityB">
+                <input type = "button" id="button_deleteRelation" onclick="deleteRelation()" value="Delete"/>
+            </div>
+        </div>
+        <div style = "display:none">
+            <h1>相关推荐</h1>
+            <lable id = "strengthA">麻黄汤</lable>
+            <br>
+            <table id = "prefer" border="1" width = "400">
+                <th>name</th>
                 <tr>
-                    <th>主语</th>
-                    <th>谓语</th>
-                    <th>宾语</th>
+                    <td>止咳散</td>
+                    <td><a href='#' onclick="strength('止咳散')">相关</a></td>
+                </tr>
+                <tr>
+                    <td>桂枝汤</td>
+                    <td><a href='#' onclick="strength('桂枝汤')">相关</a></td>
+                </tr>
+                <tr>
+                    <td>香苏散</td>
+                    <td><a href='#' onclick="strength('香苏散')">相关</a></td>
                 </tr>
             </table>
         </div>
-        <div  class="boxModify_5">
-            <input id = "relationModifyNameA" disabled = "disabled">
-            <input id = "relationModifyRelation" disabled = "disabled">
-            <input id = "relationModifyNameB" disabled = "disabled">
-            <input type="button" id="modifyNameA" onclick="modifyNameAAvailable()" value="修改主语">
-            <input type="button" id="modifyRelation" onclick="modifyRelationAvailable()" value="修改谓语">
-            <input type="button" id="modifyNameB" onclick="modifyNameBAvailable()" value="修改宾语">
-            <input type="button" id="modifySubmit" onclick="modifyRelation()" value = "submit">
-        </div>
-
-    </div>
-    <div id = "modify_delete" style = "display:none">
-        <div class="boxDelete_1">
-            <h1>实体删除</h1>
-            <input type = "text" id="deleteEntity">
-            <input type = "button" id="delete" onclick="deleteEntity()" value="Delete"/>
-        </div>
-        <div class="boxDelete_2">
-            <h1>关系删除</h1>
-            <input type = "text" id = "deleteEntityA">
-            <input type = "text" id = "deleteRelation">
-            <input type = "text" id = "deleteEntityB">
-            <input type = "button" id="button_deleteRelation" onclick="deleteRelation()" value="Delete"/>
-        </div>
-    </div>
-    <div style = "display:none">
-        <h1>相关推荐</h1>
-        <lable id = "strengthA">麻黄汤</lable>
-        <br>
-        <table id = "prefer" border="1" width = "400">
-            <th>name</th>
-            <tr>
-                <td>止咳散</td>
-                <td><a href='#' onclick="strength('止咳散')">相关</a></td>
-            </tr>
-            <tr>
-                <td>桂枝汤</td>
-                <td><a href='#' onclick="strength('桂枝汤')">相关</a></td>
-            </tr>
-            <tr>
-                <td>香苏散</td>
-                <td><a href='#' onclick="strength('香苏散')">相关</a></td>
-            </tr>
-        </table>
     </div>
 <script src="/modify_files/modify_js.js">
 

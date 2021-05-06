@@ -4,16 +4,25 @@ function selectFunction(func){
             document.getElementById("modify_add").style.display = "";
             document.getElementById("modify_modify").style.display = "none";
             document.getElementById("modify_delete").style.display = "none";
+            document.getElementById("modify_intro").style.display="none";
             break;
         case "modify":
             document.getElementById("modify_add").style.display = "none";
             document.getElementById("modify_modify").style.display = "";
             document.getElementById("modify_delete").style.display = "none";
+            document.getElementById("modify_intro").style.display="none";
             break;
         case "delete":
             document.getElementById("modify_add").style.display = "none";
             document.getElementById("modify_modify").style.display = "none";
             document.getElementById("modify_delete").style.display = "";
+            document.getElementById("modify_intro").style.display="none";
+            break;
+        case "intro":
+            document.getElementById("modify_add").style.display = "none";
+            document.getElementById("modify_modify").style.display = "none";
+            document.getElementById("modify_delete").style.display = "none";
+            document.getElementById("modify_intro").style.display="";
             break;
     }
 }
