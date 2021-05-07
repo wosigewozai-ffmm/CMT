@@ -1,5 +1,16 @@
+.boxShow{
+    height: 600px;
+    width: 460px;
+    position:absolute;
+    left:750px;
+    top:140px;
+    color:#FFFFFF;
+    display: block;
+    text-align: center;
+    background-color: #25331e;
+}
 .boxAdd{
-    height: 900px;
+    height: 600px;
     width: 600px;
     position:absolute;
     left:150px;
@@ -44,7 +55,7 @@
     padding: 42px;
 }
 .boxModify{
-    height: 900px;
+    height: 600px;
     width: 600px;
     position:absolute;
     left:150px;
@@ -80,12 +91,11 @@
 .boxModify_3 {
     overflow-x: auto;
     overflow-y: auto;
-    height: 200px;
-    width: 600px;
-    position:relative;
-    left: 0px;
-    top: 0px;
-    background-color: #25331e;
+    height: 600px;
+    width: 400px;
+    position:absolute;
+    left: 30px;
+    top:0px;
     color:#FFFFFF;
     text-align: center;
 }
@@ -112,7 +122,7 @@
     text-align: center;
 }
 .boxDelete{
-    height: 900px;
+    height: 600px;
     width: 600px;
     position:absolute;
     left:150px;
@@ -148,12 +158,11 @@
 .boxDelete_3 {
     overflow-x: auto;
     overflow-y: auto;
-    height: 200px;
-    width: 600px;
-    position:relative;
-    left: 0px;
+    height: 600px;
+    width: 400px;
+    position:absolute;
+    left: 30px;
     top: 0px;
-    background-color: #25331e;
     color:#FFFFFF;
     text-align: center;
 }
@@ -177,7 +186,7 @@
     height:150px;
 }
 .boxIntro{
-    height: 900px;
+    height: 600px;
     width: 600px;
     position:absolute;
     left:150px;

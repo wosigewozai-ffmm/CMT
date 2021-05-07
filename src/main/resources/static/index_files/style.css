@@ -8,6 +8,7 @@
 
 .header {
     background-color: #25331e;
+    z-index: 9999;
 }
 
 
@@ -97,6 +98,7 @@
     position: relative;
     background-color: #405133;
     padding-top: 5px;
+    z-index: 9999;
 }
 
 .pulldown-bg {
@@ -137,11 +139,12 @@
     left: 0;
     top: 100%;
     width: 100%;
-    z-index: 100;
+    z-index: 9998;
     display: none;
 }
 
 .pulldown .pulldown-menu {
+    z-index: 200;
     padding: 0 36px 15px;
 }
 
@@ -214,6 +217,7 @@
 
 .mobile-main-nav-collapse {
     display: none;
+    z-index: 9999;
 }
 
 
