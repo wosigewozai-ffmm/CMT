@@ -3,13 +3,29 @@ package com.seu.CMT.schema;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Schema {
     Map<String, Integer> map = new HashMap<String,Integer>();
+    List<String> relationList = new ArrayList<>();
+    List<String> entityList = new ArrayList<>();
+    Map<String,Integer> relationMap = new HashMap<>();
+
+    public List<String> getEntityList() {
+        return entityList;
+    }
+
+    public void setEntityList(List<String> entityList) {
+        this.entityList = entityList;
+    }
+
+    public List<String> getRelationList() {
+        return relationList;
+    }
+
+    public void setRelationList(List<String> relationList) {
+        this.relationList = relationList;
+    }
 
     private String[][] relation = new String[9][9];
 
@@ -32,6 +48,7 @@ public class Schema {
             reader = new BufferedReader(new FileReader(file));
             String tempStr;
             int sum = 0;
+            int sumRelation = 0;
             while ((tempStr = reader.readLine()) != null) {
                 String entityA = new String();
                 String _relation = new String();
@@ -54,10 +71,17 @@ public class Schema {
                 if (!map.containsKey(entityA)){
                     sum++;
                     map.put(entityA,sum);
+                    entityList.add(entityA);
+                }
+                if (!relationMap.containsKey(_relation)){
+                    sumRelation++;
+                    relationMap.put(_relation,sumRelation);
+                    relationList.add(_relation);
                 }
                 if (!map.containsKey(entityB)){
                     sum++;
                     map.put(entityB,sum);
+                    entityList.add(entityB);
                 }
                 relation[map.get(entityA)][map.get(entityB)]=_relation;
                 sbf.append(tempStr);

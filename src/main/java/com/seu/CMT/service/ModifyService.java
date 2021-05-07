@@ -32,4 +32,6 @@ public interface ModifyService {
     ResultDTO<ExcelData> addExcelRelation(ExcelData excelData);
 
     ResultDTO<Relation> entityStrength(Relation relation);
+
+    ResultDTO<InitialData> initData();
 }

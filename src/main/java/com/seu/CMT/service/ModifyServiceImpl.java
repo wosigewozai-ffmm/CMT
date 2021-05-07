@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -309,6 +310,18 @@ public class ModifyServiceImpl implements ModifyService {
             //不存在，新增关系
             modifyMapper.addStrengthRelation(relation);
         }
+        return resultDTO;
+    }
+
+    @Override
+    public ResultDTO<InitialData> initData() {
+        ResultDTO<InitialData> resultDTO =  new ResultDTO<>();
+        InitialData initialData = new InitialData();
+        initialData.setEntityList(schema.getEntityList());
+        initialData.setRelationList(schema.getRelationList());
+        List<InitialData> arrayList= new ArrayList<>();
+        arrayList.add(initialData);
+        resultDTO.setData(arrayList);
         return resultDTO;
     }
 }

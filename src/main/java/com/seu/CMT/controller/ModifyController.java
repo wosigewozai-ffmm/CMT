@@ -139,4 +139,12 @@ public class ModifyController {
         resultDTO = modifyService.entityStrength(relation);
         return resultDTO;
     }
+
+    @RequestMapping("/initData")
+    @ResponseBody
+    public ResultDTO<InitialData> initData(){
+        ResultDTO<InitialData> resultDTO = new ResultDTO<>();
+        resultDTO = modifyService.initData();
+        return resultDTO;
+    }
 }

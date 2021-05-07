@@ -1,3 +1,27 @@
+function initData(){
+    var model={
+
+    }
+    $.ajax({
+        url: "/modify/initData",
+        type: "POST",
+        async: true,
+        contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
+        data: JSON.stringify(model), //将JSON对象转换为JSON字符串
+        dataType: 'json',
+        success: function (data) {
+            for (i = 0; i < data.data[0].relationList.length; i++){
+                document.getElementById("addRelation").options.add(new Option(data.data[0].relationList[i],data.data[0].relationList[i]));
+                document.getElementById("excelRelationType").options.add(new Option(data.data[0].relationList[i],data.data[0].relationList[i]));
+            }
+            for (i = 0; i < data.data[0].entityList.length; i++){
+                document.getElementById("entityType").options.add(new Option(data.data[0].entityList[i],data.data[0].entityList[i]));
+                document.getElementById("modifyEntityType").options.add(new Option(data.data[0].entityList[i],data.data[0].entityList[i]));
+            }
+        }
+    })
+}
+
 function selectDeleteRelation(nameA, relation, nameB){
     document.getElementById("deleteEntityA").value = nameA;
     document.getElementById("deleteRelation").value = relation;
@@ -18,6 +42,7 @@ function delete_searchByRelation(){
         dataType: 'json',
         success: function (data) {
             document.getElementById("deleteTable").style.display = "";
+            document.getElementById("entityTable").style.display = "none";
             $("#deleteTable tr:not(:first)").empty("");
             for (i = 0; i < data.data.length; i++)
             {
@@ -41,6 +66,7 @@ function delete_searchByEntity(){
         dataType: 'json',
         success: function (data) {
             document.getElementById("deleteTable").style.display = "";
+            document.getElementById("entityTable").style.display = "none";
             $("#deleteTable tr:not(:first)").empty("");
             for (i = 0; i < data.data.length; i++)
             {
@@ -148,6 +174,7 @@ function searchByRelation(){
         dataType: 'json',
         success: function (data) {
             document.getElementById("entityTable").style.display = "";
+            document.getElementById("deleteTable").style.display = "none";
             $("#entityTable tr:not(:first)").empty("");
             for (i = 0; i < data.data.length; i++)
             {
@@ -235,6 +262,7 @@ function searchByEntity(){
         dataType: 'json',
         success: function (data) {
             document.getElementById("entityTable").style.display = "";
+            document.getElementById("deleteTable").style.display = "none";
             $("#entityTable tr:not(:first)").empty("");
             for (i = 0; i < data.data.length; i++)
             {
