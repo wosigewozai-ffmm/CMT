@@ -1,3 +1,55 @@
+function selectDeleteRelation(nameA, relation, nameB){
+    document.getElementById("deleteEntityA").value = nameA;
+    document.getElementById("deleteRelation").value = relation;
+    document.getElementById("deleteEntityB").value = nameB;
+}
+
+
+function delete_searchByRelation(){
+    var model = {
+        "relation": document.getElementById("delete_searchByRelationRelation").value,
+    }
+    $.ajax({
+        url: "/modify/searchByRelation",
+        type: "POST",
+        async: true,
+        contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
+        data: JSON.stringify(model), //将JSON对象转换为JSON字符串
+        dataType: 'json',
+        success: function (data) {
+            document.getElementById("deleteTable").style.display = "";
+            $("#deleteTable tr:not(:first)").empty("");
+            for (i = 0; i < data.data.length; i++)
+            {
+                var tr = $("<tr><td>" + data.data[i].nameA + "</td><td>" + data.data[i].relation + "</td><td>" + data.data[i].nameB + "</td><td><a href='#' onclick='selectDeleteRelation($(this).closest(\"tr\").find(\"td\").eq(0).text(),$(this).closest(\"tr\").find(\"td\").eq(1).text(),$(this).closest(\"tr\").find(\"td\").eq(2).text());'>select</a></td></tr>\")</tr>");
+                $("#deleteTable").append(tr);
+            }
+        }
+    })
+}
+
+function delete_searchByEntity(){
+    var model={
+        "name":document.getElementById("delete_searchByEntity").value,
+    }
+    $.ajax({
+        url: "/modify/searchByEntity",
+        type: "POST",
+        async: true,
+        contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
+        data: JSON.stringify(model), //将JSON对象转换为JSON字符串
+        dataType: 'json',
+        success: function (data) {
+            document.getElementById("deleteTable").style.display = "";
+            $("#deleteTable tr:not(:first)").empty("");
+            for (i = 0; i < data.data.length; i++)
+            {
+                var tr = $("<tr><td>" + data.data[i].nameA + "</td><td>" + data.data[i].relation + "</td><td>" + data.data[i].nameB + "</td><td><a href='#' onclick='selectDeleteRelation($(this).closest(\"tr\").find(\"td\").eq(0).text(),$(this).closest(\"tr\").find(\"td\").eq(1).text(),$(this).closest(\"tr\").find(\"td\").eq(2).text());'>select</a></td></tr>\")</tr>");
+                $("#deleteTable").append(tr);
+            }
+        }
+    })
+}
 function selectFunction(func){
     switch (func){
         case "add":
@@ -5,6 +57,7 @@ function selectFunction(func){
             document.getElementById("modify_modify").style.display = "none";
             document.getElementById("modify_delete").style.display = "none";
             document.getElementById("modify_intro").style.display="none";
+            document.getElementById("modify_show").style.display="none";
             break;
         case "modify":
             document.getElementById("modify_add").style.display = "none";
@@ -23,6 +76,7 @@ function selectFunction(func){
             document.getElementById("modify_modify").style.display = "none";
             document.getElementById("modify_delete").style.display = "none";
             document.getElementById("modify_intro").style.display="";
+            document.getElementById("modify_show").style.display="none";
             break;
     }
 }
@@ -136,6 +190,8 @@ function modifyNameAAvailable(){
     document.getElementById("relationModifyNameA").disabled = "";
     document.getElementById("relationModifyRelation").disabled = "disabled";
     document.getElementById("relationModifyNameB").disabled = "disabled";
+    document.getElementById("relationModifyRelation").value = modifyRelationModel.relation_old;
+    document.getElementById("relationModifyNameB").value = modifyRelationModel.nameB_old;
     modifyRelationModel.modifyType=1;
 }
 
@@ -143,6 +199,8 @@ function modifyRelationAvailable(){
     document.getElementById("relationModifyNameA").disabled = "disabled";
     document.getElementById("relationModifyRelation").disabled = "";
     document.getElementById("relationModifyNameB").disabled = "disabled";
+    document.getElementById("relationModifyNameA").value = modifyRelationModel.nameA_old;
+    document.getElementById("relationModifyNameB").value = modifyRelationModel.nameB_old;
     modifyRelationModel.modifyType=2;
 }
 
@@ -150,6 +208,8 @@ function modifyNameBAvailable(){
     document.getElementById("relationModifyNameA").disabled = "disabled";
     document.getElementById("relationModifyRelation").disabled = "disabled";
     document.getElementById("relationModifyNameB").disabled = "";
+    document.getElementById("relationModifyRelation").value = modifyRelationModel.relation_old;
+    document.getElementById("relationModifyNameA").value = modifyRelationModel.nameA_old;
     modifyRelationModel.modifyType  =3;
 }
 

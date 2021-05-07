@@ -275,7 +275,7 @@
             <input id="addEntityB" type="text">
         </div>
         </div>
-        <div id = "modify_modify" style = "display:none">
+        <div id = "modify_modify"  class = "boxModify" style = "display: none">
             <div class = "boxModify_1">
                 <h1>实体修改</h1>
                 <input id = "entityName_modify" type = "text" placeholder="实体名">
@@ -302,13 +302,11 @@
                 <h2>searchByEntity</h2>
                 <input id = "_searchByEntity">
                 <input type="button" onclick="searchByEntity()" value = "Search">
-            </div>
-            <div class="boxModify_3">
                 <h2>searchByRelation</h2>
                 <input id = "searchByRelationRelation" placeholder="谓语">
                 <input type="button" onclick="searchByRelation()" value = "Search">
             </div>
-            <div class="boxModify_4">
+            <div class="boxModify_3">
                 <table  id ="entityTable" border="1" style="display: none" width = "400">
                     <tr>
                         <th>主语</th>
@@ -317,7 +315,7 @@
                     </tr>
                 </table>
             </div>
-            <div  class="boxModify_5">
+            <div  class="boxModify_4">
                 <input id = "relationModifyNameA" disabled = "disabled">
                 <input id = "relationModifyRelation" disabled = "disabled">
                 <input id = "relationModifyNameB" disabled = "disabled">
@@ -330,7 +328,7 @@
             </div>
 
         </div>
-        <div id = "modify_delete" style = "display: none">
+        <div id = "modify_delete" class = "boxDelete" style = "display: none">
             <div class="boxDelete_1">
                 <h1>实体删除</h1>
                 <input type = "text" id="deleteEntity">
@@ -338,6 +336,23 @@
             </div>
             <div class="boxDelete_2">
                 <h1>关系删除</h1>
+                <h2>searchByEntity</h2>
+                <input id = "delete_searchByEntity">
+                <input type="button" onclick="delete_searchByEntity()" value = "Search">
+                <h2>searchByRelation</h2>
+                <input id = "delete_searchByRelationRelation" placeholder="谓语">
+                <input type="button" onclick="delete_searchByRelation()" value = "Search">
+            </div>
+            <div class="boxDelete_3">
+                <table  id ="deleteTable" border="1" style="display: none" width = "400">
+                    <tr>
+                        <th>主语</th>
+                        <th>谓语</th>
+                        <th>宾语</th>
+                    </tr>
+                </table>
+            </div>
+            <div  class="boxDelete_4">
                 <input type = "text" id = "deleteEntityA">
                 <input type = "text" id = "deleteRelation">
                 <input type = "text" id = "deleteEntityB">
