@@ -1,3 +1,11 @@
+var pos = new Array();
+for(var i = 0; i < 999; i++) {
+    pos[i] = new Array();
+    for(var j = 0; j < 3; j++) {
+        pos[i][j] = "";
+    }
+}
+var schemaLength;
 function initData(){
     var model={
 
@@ -10,6 +18,12 @@ function initData(){
         data: JSON.stringify(model), //将JSON对象转换为JSON字符串
         dataType: 'json',
         success: function (data) {
+            schemaLength = data.data[0].schemaList.length;
+            for (i = 0; i < data.data[0].schemaList.length; i++){
+                pos[i][0]=data.data[0].schemaList[i][0];
+                pos[i][1]=data.data[0].schemaList[i][1];
+                pos[i][2]=data.data[0].schemaList[i][2];
+            }
             for (i = 0; i < data.data[0].relationList.length; i++){
                 document.getElementById("addRelation").options.add(new Option(data.data[0].relationList[i],data.data[0].relationList[i]));
                 document.getElementById("excelRelationType").options.add(new Option(data.data[0].relationList[i],data.data[0].relationList[i]));
@@ -347,29 +361,35 @@ function deleteEntity(){
 function addRelationChange(){
     $("#EntityA").find("option").remove();
     $("#EntityB").find("option").remove();
-    switch (document.getElementById("addRelation").value) {
-        case "主治":
-            $("#EntityA").append("<option value='Value'>方剂</option>");
-            $("#EntityB").append("<option value='Value'>症状</option>");
-            break;
-        case"组成":
-            $("#EntityA").append("<option value='Value'>药材</option>");
-            $("#EntityB").append("<option value='Value'>方剂</option>");
-            break;
-        case"具有":
-            $("#EntityA").append("<option value='Value'>方剂</option>");
-            $("#EntityB").append("<option value='Value'>功效</option>");
-            break;
-        case"属于":
-            $("#EntityA").append("<option value='Value'>方剂</option>");
-            $("#EntityB").append("<option value='Value'>功用大类</option>");
-            $("#EntityB").append("<option value='Value'>功用小类</option>");
-            break;
-        case"包含":
-            $("#EntityA").append("<option value='Value'>功用大类</option>");
-            $("#EntityB").append("<option value='Value'>功用小类</option>");
-            break;
+    for (i = 0; i < schemaLength; i++){
+        if (pos[i][1] == document.getElementById("addRelation").value){
+            $("#EntityA").append("<option value="+pos[i][0]+">"+pos[i][0]+"</option>");
+            $("#EntityB").append("<option value="+pos[i][2]+">"+pos[i][2]+"</option>");
+        }
     }
+    // switch (document.getElementById("addRelation").value) {
+    //     case "主治":
+    //         $("#EntityA").append("<option value='Value'>方剂</option>");
+    //         $("#EntityB").append("<option value='Value'>症状</option>");
+    //         break;
+    //     case"组成":
+    //         $("#EntityA").append("<option value='Value'>药材</option>");
+    //         $("#EntityB").append("<option value='Value'>方剂</option>");
+    //         break;
+    //     case"具有":
+    //         $("#EntityA").append("<option value='Value'>方剂</option>");
+    //         $("#EntityB").append("<option value='Value'>功效</option>");
+    //         break;
+    //     case"属于":
+    //         $("#EntityA").append("<option value='Value'>方剂</option>");
+    //         $("#EntityB").append("<option value='Value'>功用大类</option>");
+    //         $("#EntityB").append("<option value='Value'>功用小类</option>");
+    //         break;
+    //     case"包含":
+    //         $("#EntityA").append("<option value='Value'>功用大类</option>");
+    //         $("#EntityB").append("<option value='Value'>功用小类</option>");
+    //         break;
+    // }
 }
 function insertRelation(){
     var model = {

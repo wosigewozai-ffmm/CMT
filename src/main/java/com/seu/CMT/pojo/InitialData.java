@@ -5,6 +5,15 @@ import java.util.List;
 public class InitialData {
     List<String> relationList;
     List<String> entityList;
+    List<List<String>> schemaList;
+
+    public List<List<String>> getSchemaList() {
+        return schemaList;
+    }
+
+    public void setSchemaList(List<List<String>> schemaList) {
+        this.schemaList = schemaList;
+    }
 
     public List<String> getRelationList() {
         return relationList;

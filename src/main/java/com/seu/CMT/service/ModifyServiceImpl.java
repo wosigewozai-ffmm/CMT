@@ -319,6 +319,7 @@ public class ModifyServiceImpl implements ModifyService {
         InitialData initialData = new InitialData();
         initialData.setEntityList(schema.getEntityList());
         initialData.setRelationList(schema.getRelationList());
+        initialData.setSchemaList(schema.getSchemaList());
         List<InitialData> arrayList= new ArrayList<>();
         arrayList.add(initialData);
         resultDTO.setData(arrayList);

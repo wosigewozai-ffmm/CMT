@@ -10,6 +10,15 @@ public class Schema {
     List<String> relationList = new ArrayList<>();
     List<String> entityList = new ArrayList<>();
     Map<String,Integer> relationMap = new HashMap<>();
+    List<List<String>> schemaList = new ArrayList<>();
+
+    public List<List<String>> getSchemaList() {
+        return schemaList;
+    }
+
+    public void setSchemaList(List<List<String>> schemaList) {
+        this.schemaList = schemaList;
+    }
 
     public List<String> getEntityList() {
         return entityList;
@@ -68,6 +77,11 @@ public class Schema {
                     entityB += tempStr.charAt(i);
                     i++;
                 }
+                List<String> schemaTemp = new ArrayList<>();
+                schemaTemp.add(entityA);
+                schemaTemp.add(_relation);
+                schemaTemp.add(entityB);
+                schemaList.add(schemaTemp);
                 if (!map.containsKey(entityA)){
                     sum++;
                     map.put(entityA,sum);
