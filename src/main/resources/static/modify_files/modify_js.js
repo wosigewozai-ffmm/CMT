@@ -333,33 +333,37 @@ function deleteRelation(){
         "nameB": document.getElementById("deleteEntityB").value,
         "relation": document.getElementById("deleteRelation").value
     }
-    $.ajax({
-        url: "/modify/deleteRelation",
-        type: "POST",
-        async: true,
-        contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
-        data: JSON.stringify(model), //将JSON对象转换为JSON字符串
-        dataType: 'json',
-        success: function (data) {
-            alert(data.msg);
-        }
-    })
+    if (confirm("确认删除“"+model.nameA+model.relation+model.nameB+"”这条关系")) {
+        $.ajax({
+            url: "/modify/deleteRelation",
+            type: "POST",
+            async: true,
+            contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
+            data: JSON.stringify(model), //将JSON对象转换为JSON字符串
+            dataType: 'json',
+            success: function (data) {
+                alert(data.msg);
+            }
+        })
+    }
 }
 function deleteEntity(){
     var model = {
         "name": document.getElementById("deleteEntity").value,
     }
-    $.ajax({
-        url: "/modify/deleteEntity",
-        type: "POST",
-        async: true,
-        contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
-        data: JSON.stringify(model), //将JSON对象转换为JSON字符串
-        dataType: 'json',
-        success: function (data) {
-            alert(data.msg);
-        }
-    })
+    if (confirm("确认删除“"+model.name+"”实体相关的内容")) {
+        $.ajax({
+            url: "/modify/deleteEntity",
+            type: "POST",
+            async: true,
+            contentType: "application/json;charset=UTF-8", //使用 application/json;charset=UTF-8
+            data: JSON.stringify(model), //将JSON对象转换为JSON字符串
+            dataType: 'json',
+            success: function (data) {
+                alert(data.msg);
+            }
+        })
+    }
 }
 
 function addRelationChange(){
