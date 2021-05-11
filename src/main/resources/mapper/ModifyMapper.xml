@@ -104,7 +104,7 @@
 
     <update id="updateEntity">
         match (u:Model)
-        where u.name = #{model.name}
+        where u.name = #{model.modifyName}
         set u.name = #{model.name},u.type = #{model.type}
     </update>
 

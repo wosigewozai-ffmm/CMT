@@ -91,32 +91,36 @@ function delete_searchByEntity(){
     })
 }
 function selectFunction(func){
+    $("#deleteTable tr:not(:first)").empty("");
+    $("#entityTable tr:not(:first)").empty("");
     switch (func){
         case "add":
             document.getElementById("modify_add").style.display = "";
             document.getElementById("modify_modify").style.display = "none";
             document.getElementById("modify_delete").style.display = "none";
             document.getElementById("modify_intro").style.display="none";
-            document.getElementById("modify_show").style.display="none";
+            document.getElementById("show_table").style.display="none";
             break;
         case "modify":
             document.getElementById("modify_add").style.display = "none";
             document.getElementById("modify_modify").style.display = "";
             document.getElementById("modify_delete").style.display = "none";
             document.getElementById("modify_intro").style.display="none";
+            document.getElementById("show_table").style.display="";
             break;
         case "delete":
             document.getElementById("modify_add").style.display = "none";
             document.getElementById("modify_modify").style.display = "none";
             document.getElementById("modify_delete").style.display = "";
             document.getElementById("modify_intro").style.display="none";
+            document.getElementById("show_table").style.display="";
             break;
         case "intro":
             document.getElementById("modify_add").style.display = "none";
             document.getElementById("modify_modify").style.display = "none";
             document.getElementById("modify_delete").style.display = "none";
             document.getElementById("modify_intro").style.display="";
-            document.getElementById("modify_show").style.display="none";
+            document.getElementById("show_table").style.display="none";
             break;
     }
 }
@@ -559,7 +563,7 @@ function imgUpload(){
         contentType:false,//ajax上传图片需要添加
         processData:false,//ajax上传图片需要添加
         success: function (data) {
-            console.log(data)
+            alert(data.msg)
             var result = data.result
             $("#message").html(result)
         },

@@ -34,7 +34,7 @@ public class ModifyServiceImpl implements ModifyService {
         System.out.println("addExcel");
         String fileName = file.getOriginalFilename();
         ClassPathResource resource = new ClassPathResource("");
-        String projectPath = resource.getFile().getAbsolutePath()+"\\static\\excel";
+        String projectPath = "C:\\Users\\yuhon\\.Neo4jDesktop\\neo4jDatabases\\database-e49e2ae9-bca9-4d3a-83c6-9966f05b252d\\installation-3.5.14\\import";
         String path = projectPath + "\\" + fileName;
         System.out.println(path);
         File dest = new File(path);
@@ -106,10 +106,10 @@ public class ModifyServiceImpl implements ModifyService {
     public ResultDTO<Model> deleteEntity(Model model) {
         ResultDTO<Model> resultDTO = new ResultDTO<>();
         int i = modifyMapper.deleteEntity(model);
-        if (i == 1){
-            resultDTO.setMsg("success");
-        }else{
+        if (i == 0){
             resultDTO.setMsg("ERROR");
+        }else{
+            resultDTO.setMsg("success");
         }
         return resultDTO;
     }
@@ -118,10 +118,10 @@ public class ModifyServiceImpl implements ModifyService {
     public ResultDTO<Relation> deleteRelation(Relation relation) {
         ResultDTO<Relation> resultDTO = new ResultDTO<>();
         int i = modifyMapper.deleteRelation(relation);
-        if (i == 1){
-            resultDTO.setMsg("success");
-        }else{
+        if (i == 0){
             resultDTO.setMsg("error");
+        }else{
+            resultDTO.setMsg("success");
         }
         return resultDTO;
     }
@@ -129,7 +129,7 @@ public class ModifyServiceImpl implements ModifyService {
     String searchString =  new String();
 
     @Override
-    public ResultDTO<Model> searchModifyEntity(Model model) {
+        public ResultDTO<Model> searchModifyEntity(Model model) {
         ResultDTO<Model> resultDTO =  new ResultDTO<>();
         List<Model> result = modifyMapper.find(model.getName());
         if (result.size() == 0){
@@ -148,21 +148,36 @@ public class ModifyServiceImpl implements ModifyService {
         if ((models.size()>0) && (!model.getName().equals(searchString))){
             resultDTO.setMsg("实体名已经存在");
         }else{
+            model.setModifyName(searchString);
             List<Relation> relations = modifyMapper.findEntityRelation(model);
             boolean flag = true;
+
             String[][] schemaMap = schema.getRelation();
             for (int i=0;i<relations.size();i++){
                 Relation relation = relations.get(i);
                 if (relation.getNameA().equals(model.getName())){
                     Model model1 = modifyMapper.find(relation.getNameB()).get(0);
-                    if ((schemaMap[schema.relationMap(model.getType())][schema.relationMap(model1.getType())]!=null)&&(!schemaMap[schema.relationMap(model.getType())][schema.relationMap(model1.getType())].equals(relation.getRelation()))){
+                    if ((schemaMap[schema.relationMap(model.getType())][schema.relationMap(model1.getType())]!=null)){
+                        if ((!schemaMap[schema.relationMap(model.getType())][schema.relationMap(model1.getType())].equals(relation.getRelation()))){
+                            flag = false;
+                            resultDTO.setMsg("新类型不合法");
+                            break;
+                        }
+                    }
+                    else{
                         flag = false;
                         resultDTO.setMsg("新类型不合法");
                         break;
                     }
                 }else{
                     Model model1 = modifyMapper.find(relation.getNameA()).get(0);
-                    if ((schemaMap[schema.relationMap(model1.getType())][schema.relationMap(model.getType())]!=null)&&(!schemaMap[schema.relationMap(model1.getType())][schema.relationMap(model.getType())].equals(relation.getRelation()))){
+                    if ((schemaMap[schema.relationMap(model1.getType())][schema.relationMap(model.getType())]!=null)){
+                        if ((!schemaMap[schema.relationMap(model1.getType())][schema.relationMap(model.getType())].equals(relation.getRelation()))){
+                            flag = false;
+                            resultDTO.setMsg("新类型不合法");
+                            break;
+                        }
+                    }else {
                         flag = false;
                         resultDTO.setMsg("新类型不合法");
                         break;
@@ -273,10 +288,10 @@ public class ModifyServiceImpl implements ModifyService {
             fileName += excelData.getName().charAt(i);
         }
         int i = modifyMapper.addExcelEntity(fileName);
-        if (i==1)
-            resultDTO.setMsg("success");
-        else{
+        if (i==0)
             resultDTO.setMsg("error");
+        else{
+            resultDTO.setMsg("success");
         }
         return resultDTO;
     }
@@ -289,10 +304,10 @@ public class ModifyServiceImpl implements ModifyService {
             fileName += excelData.getName().charAt(i);
         }
         int i = modifyMapper.addExcelRelation(fileName, excelData.getRelation());
-        if (i==1)
-            resultDTO.setMsg("success");
-        else{
+        if (i==0)
             resultDTO.setMsg("error");
+        else{
+            resultDTO.setMsg("success");
         }
         return resultDTO;
     }

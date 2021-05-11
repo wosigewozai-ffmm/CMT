@@ -16,6 +16,16 @@ public class Model {
     private String symptom;
     private String function_large;
     private String function_small;
+    private String modifyName;
+
+    public String getModifyName() {
+        return modifyName;
+    }
+
+    public void setModifyName(String modifyName) {
+        this.modifyName = modifyName;
+    }
+
     private Map<String,String> map;
 
     public String getEntity(String type){
