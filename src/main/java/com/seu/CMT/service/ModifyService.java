@@ -33,5 +33,5 @@ public interface ModifyService {
 
     ResultDTO<Relation> entityStrength(Relation relation);
 
-    ResultDTO<InitialData> initData();
+    ResultDTO<InitialData> initData() throws IOException;
 }

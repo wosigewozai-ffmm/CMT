@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.xml.transform.Result;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -142,7 +143,7 @@ public class ModifyController {
 
     @RequestMapping("/initData")
     @ResponseBody
-    public ResultDTO<InitialData> initData(){
+    public ResultDTO<InitialData> initData() throws IOException {
         ResultDTO<InitialData> resultDTO = new ResultDTO<>();
         resultDTO = modifyService.initData();
         return resultDTO;

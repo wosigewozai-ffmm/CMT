@@ -329,7 +329,8 @@ public class ModifyServiceImpl implements ModifyService {
     }
 
     @Override
-    public ResultDTO<InitialData> initData() {
+    public ResultDTO<InitialData> initData() throws IOException {
+        schema = new Schema();
         ResultDTO<InitialData> resultDTO =  new ResultDTO<>();
         InitialData initialData = new InitialData();
         initialData.setEntityList(schema.getEntityList());
