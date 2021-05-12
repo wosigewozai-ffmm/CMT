@@ -7,6 +7,14 @@ for(var i = 0; i < 999; i++) {
 }
 var schemaLength;
 function initData(){
+    document.getElementById("selectIntro_").style.backgroundColor="#25331e";
+    document.getElementById("selectAdd_").style.backgroundColor="#405133";
+    document.getElementById("selectDelete_").style.backgroundColor="#405133";
+    document.getElementById("selectModify_").style.backgroundColor="#405133";
+    document.getElementById("selectIntro_").style.color="#FFFF00";
+    document.getElementById("selectAdd_").style.color="#FFFFFF";
+    document.getElementById("selectDelete_").style.color="#FFFFFF";
+    document.getElementById("selectModify_").style.color="#FFFFFF";
     var model={
 
     }
@@ -100,6 +108,14 @@ function selectFunction(func){
             document.getElementById("modify_delete").style.display = "none";
             document.getElementById("modify_intro").style.display="none";
             document.getElementById("show_table").style.display="none";
+            document.getElementById("selectAdd_").style.backgroundColor="#25331e";
+            document.getElementById("selectIntro_").style.backgroundColor="#405133";
+            document.getElementById("selectDelete_").style.backgroundColor="#405133";
+            document.getElementById("selectModify_").style.backgroundColor="#405133";
+            document.getElementById("selectAdd_").style.color="#FFFF00";
+            document.getElementById("selectIntro_").style.color="#FFFFFF";
+            document.getElementById("selectDelete_").style.color="#FFFFFF";
+            document.getElementById("selectModify_").style.color="#FFFFFF";
             break;
         case "modify":
             document.getElementById("modify_add").style.display = "none";
@@ -107,6 +123,14 @@ function selectFunction(func){
             document.getElementById("modify_delete").style.display = "none";
             document.getElementById("modify_intro").style.display="none";
             document.getElementById("show_table").style.display="";
+            document.getElementById("selectModify_").style.backgroundColor="#25331e";
+            document.getElementById("selectIntro_").style.backgroundColor="#405133";
+            document.getElementById("selectDelete_").style.backgroundColor="#405133";
+            document.getElementById("selectAdd_").style.backgroundColor="#405133";
+            document.getElementById("selectModify_").style.color="#FFFF00";
+            document.getElementById("selectIntro_").style.color="#FFFFFF";
+            document.getElementById("selectDelete_").style.color="#FFFFFF";
+            document.getElementById("selectAdd_").style.color="#FFFFFF";
             break;
         case "delete":
             document.getElementById("modify_add").style.display = "none";
@@ -114,6 +138,14 @@ function selectFunction(func){
             document.getElementById("modify_delete").style.display = "";
             document.getElementById("modify_intro").style.display="none";
             document.getElementById("show_table").style.display="";
+            document.getElementById("selectDelete_").style.backgroundColor="#25331e";
+            document.getElementById("selectIntro_").style.backgroundColor="#405133";
+            document.getElementById("selectAdd_").style.backgroundColor="#405133";
+            document.getElementById("selectModify_").style.backgroundColor="#405133";
+            document.getElementById("selectDelete_").style.color="#FFFF00";
+            document.getElementById("selectIntro_").style.color="#FFFFFF";
+            document.getElementById("selectAdd_").style.color="#FFFFFF";
+            document.getElementById("selectModify_").style.color="#FFFFFF";
             break;
         case "intro":
             document.getElementById("modify_add").style.display = "none";
@@ -121,6 +153,14 @@ function selectFunction(func){
             document.getElementById("modify_delete").style.display = "none";
             document.getElementById("modify_intro").style.display="";
             document.getElementById("show_table").style.display="none";
+            document.getElementById("selectIntro_").style.backgroundColor="#25331e";
+            document.getElementById("selectAdd_").style.backgroundColor="#405133";
+            document.getElementById("selectDelete_").style.backgroundColor="#405133";
+            document.getElementById("selectModify_").style.backgroundColor="#405133";
+            document.getElementById("selectIntro_").style.color="#FFFF00";
+            document.getElementById("selectAdd_").style.color="#FFFFFF";
+            document.getElementById("selectDelete_").style.color="#FFFFFF";
+            document.getElementById("selectModify_").style.color="#FFFFFF";
             break;
     }
 }
@@ -566,13 +606,8 @@ function imgUpload(){
         data: formdata,
         contentType:false,//ajax上传图片需要添加
         processData:false,//ajax上传图片需要添加
-        success: function (data) {
-            alert(data.msg)
-            var result = data.result
-            $("#message").html(result)
-        },
-        error: function (e) {
-            alert("error,请输入正确参数");
+        success: function(data){
+            alert("success");
         }
     })
 }
