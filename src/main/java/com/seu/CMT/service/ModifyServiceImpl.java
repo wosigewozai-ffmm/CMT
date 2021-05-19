@@ -210,7 +210,7 @@ public class ModifyServiceImpl implements ModifyService {
                     int typeA = schema.relationMap(modelA.getType());
                     Model modelB = modifyMapper.find(relation.getNameB_old()).get(0);
                     int typeB = schema.relationMap(modelB.getType());
-                    if (schemaMap[typeA][typeB].equals(relation.getRelation_old())){
+                    if ((schemaMap[typeA][typeB]!=null) && (schemaMap[typeA][typeB].equals(relation.getRelation_old()))){
                         int i = modifyMapper.deleteOldRelation(relation);
                         if (i==0){
                             resultDTO.setMsg("删除关系失败");
@@ -287,7 +287,7 @@ public class ModifyServiceImpl implements ModifyService {
         for (int i = excelData.getName().lastIndexOf("\\") + 1; i < excelData.getName().length();i++){
             fileName += excelData.getName().charAt(i);
         }
-        int i = modifyMapper.addExcelEntity(fileName);
+        int i = modifyMapper.addExcelEntity(fileName, excelData.getRelation());
         if (i==0)
             resultDTO.setMsg("error");
         else{

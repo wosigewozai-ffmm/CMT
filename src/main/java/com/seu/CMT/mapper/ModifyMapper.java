@@ -32,7 +32,7 @@ public interface ModifyMapper {
 
     int deleteOldRelation(@Param("relation") Relation relation);
 
-    int addExcelEntity(@Param("fileName") String fileName);
+    int addExcelEntity(@Param("fileName") String fileName,  @Param("relation") String relation);
 
     int addExcelRelation(@Param("fileName") String fileName, @Param("relation") String relation);
 

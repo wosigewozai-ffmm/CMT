@@ -45,36 +45,36 @@
 
     <select id="find" resultMap="resultMap">
         match
-        (u:Model)
+        (u)
         where u.name = #{name}
         return
         u.name as name, u.type as type
     </select>
 
     <select id="findRelation" resultMap="resultMap">
-        MATCH (m:Model { name:#{relation.nameA}})
-        MATCH (n:Model { name:#{relation.nameB}})
+        MATCH (m{ name:#{relation.nameA}})
+        MATCH (n{ name:#{relation.nameB}})
         MATCH (m)-[:${relation.relation}]->(n)
         return n,m
     </select>
 
     <!--create(u:user{name:'aaa'}) - [l:like] -> (u1:user{name:'bbb'}) - [l1:like] -> (u2:user{name:'ccc'})-->
     <insert id="add">
-        create(u:Model{name:#{model.name},type:#{model.type},effect:#{model.effect},prescription:#{model.prescription},herb:#{model.herb},symptom:#{model.symptom},function_large:#{model.function_large},function_small:#{model.function_small}})
+        create(u:${model.type}{name:#{model.name},type:#{model.type},effect:#{model.effect},prescription:#{model.prescription},herb:#{model.herb},symptom:#{model.symptom},function_large:#{model.function_large},function_small:#{model.function_small}})
     </insert>
 
     <insert id="addRelation">
-        match (n:Model{name:#{relation.nameA}}) , (m:Model{name:#{relation.nameB}} )
+        match (n{name:#{relation.nameA}}) , (m{name:#{relation.nameB}} )
         merge  (n) - [${relation.relation}:${relation.relation}{name:"${relation.relation}"}] -> (m)
     </insert>
 
     <insert id="addStrengthRelation">
-        match (n:Model{name:#{relation.nameA}}) , (m:Model{name:#{relation.nameB}} )
+        match (n{name:#{relation.nameA}}) , (m{name:#{relation.nameB}} )
         create  (n) - [${relation.relation}:${relation.relation}{name:"ties",ties: 1 }] -> (m)
     </insert>
 
     <delete id="deleteEntity">
-        MATCH (n:Model{name:#{model.name}}) DETACH DELETE n
+        MATCH (n{name:#{model.name}}) DETACH DELETE n
     </delete>
 
     <delete id="deleteRelation">
@@ -103,7 +103,7 @@
     </select>
 
     <update id="updateEntity">
-        match (u:Model)
+        match (u)
         where u.name = #{model.modifyName}
         set u.name = #{model.name},u.type = #{model.type}
     </update>
@@ -120,13 +120,13 @@
 
     <insert id="addExcelEntity">
         LOAD CSV WITH HEADERS FROM "file:///${fileName}" as row
-        CREATE(u:Model{name:row.name, type:row.type,effect:row.effect,prescription:row.prescription,herb:row.herb,symptom:row.symptom,function_large:row.function_large,function_small:row.function_small})
+        CREATE(u:${relation}    {name:row.name, type:row.type,effect:row.effect,prescription:row.prescription,herb:row.herb,symptom:row.symptom,function_large:row.function_large,function_small:row.function_small})
     </insert>
 
     <insert id="addExcelRelation">
         LOAD CSV WITH HEADERS FROM "file:///${fileName}" as row
-        MATCH (n:Model{name:row.nameA})
-        MATCH (m:Model{name:row.nameB})
+        MATCH (n{name:row.nameA})
+        MATCH (m{name:row.nameB})
         MERGE (n)-[${relation}:${relation}{name:"${relation}"}  ]->(m)
     </insert>
 </mapper>

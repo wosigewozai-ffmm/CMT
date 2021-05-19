@@ -39,6 +39,7 @@ function initData(){
             for (i = 0; i < data.data[0].entityList.length; i++){
                 document.getElementById("entityType").options.add(new Option(data.data[0].entityList[i],data.data[0].entityList[i]));
                 document.getElementById("modifyEntityType").options.add(new Option(data.data[0].entityList[i],data.data[0].entityList[i]));
+                document.getElementById("entityExcelType").options.add(new Option(data.data[0].entityList[i],data.data[0].entityList[i]));
             }
         }
     })
@@ -205,6 +206,7 @@ function addExcelRelation(){
 function addExcelEntity(){
     var model = {
         "name" : document.getElementById("filename").value,
+        "relation" : document.getElementById("entityExcelType").value,
     }
     $.ajax({
         url: "/modify/addExcelEntity",
