@@ -24,25 +24,25 @@ public class ModifyController {
     public ModifyController(){
     }
 
-    @GetMapping("/getAllEffect")
-    public List<Model> getAllEffect(){
-        List<Model> models = modifyService.getAllEffect();
-        return models;
-    }
-
-    @RequestMapping("/getAllPrescription")
-    @ResponseBody
-    public ResultDTO<Model> getAllPrescription(){
-        ResultDTO<Model> resultDTO = new ResultDTO<>();
-        List<Model> models = modifyService.getAllPrescription();
-        resultDTO.setData(models);
-        return resultDTO;
-    }
+//    @GetMapping("/getAllEffect")
+//    public List<Model> getAllEffect(){
+//        List<Model> models = modifyService.getAllEffect();
+//        return models;
+//    }
+//
+//    @RequestMapping("/getAllPrescription")
+//    @ResponseBody
+//    public ResultDTO<Model> getAllPrescription(){
+//        ResultDTO<Model> resultDTO = new ResultDTO<>();
+//        List<Model> models = modifyService.getAllPrescription();
+//        resultDTO.setData(models);
+//        return resultDTO;
+//    }
 
     @RequestMapping("/add")
     @ResponseBody
     public ResultDTO<Model> addEntity(@RequestBody Model model) {
-        ResultDTO<Model> resultDTO = new ResultDTO<>();
+        ResultDTO<Model> resultDTO   = new ResultDTO<>();
         resultDTO = modifyService.add(model);
         return resultDTO;
     }

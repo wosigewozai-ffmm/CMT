@@ -133,7 +133,7 @@ public class ModifyServiceImpl implements ModifyService {
         ResultDTO<Model> resultDTO =  new ResultDTO<>();
         List<Model> result = modifyMapper.find(model.getName());
         if (result.size() == 0){
-            resultDTO.setMsg("No entity found");
+                resultDTO.setMsg("No entity found");
         }else {
             searchString = result.get(0).getName();
             resultDTO.setData(result);

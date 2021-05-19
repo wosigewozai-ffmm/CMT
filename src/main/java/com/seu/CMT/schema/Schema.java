@@ -6,11 +6,11 @@ import java.io.*;
 import java.util.*;
 
 public class Schema {
-    Map<String, Integer> map = new HashMap<String,Integer>();
-    List<String> relationList = new ArrayList<>();
-    List<String> entityList = new ArrayList<>();
-    Map<String,Integer> relationMap = new HashMap<>();
-    List<List<String>> schemaList = new ArrayList<>();
+    private Map<String, Integer> map = new HashMap<String,Integer>();
+    private List<String> relationList = new ArrayList<>();
+    private List<String> entityList = new ArrayList<>();
+    private Map<String,Integer> relationMaps = new HashMap<>();
+    private List<List<String>> schemaList = new ArrayList<>();
 
     public List<List<String>> getSchemaList() {
         return schemaList;
@@ -87,9 +87,9 @@ public class Schema {
                     map.put(entityA,sum);
                     entityList.add(entityA);
                 }
-                if (!relationMap.containsKey(_relation)){
+                if (!relationMaps.containsKey(_relation)){
                     sumRelation++;
-                    relationMap.put(_relation,sumRelation);
+                    relationMaps.put(_relation,sumRelation);
                     relationList.add(_relation);
                 }
                 if (!map.containsKey(entityB)){

@@ -65,7 +65,7 @@
 
     <insert id="addRelation">
         match (n:Model{name:#{relation.nameA}}) , (m:Model{name:#{relation.nameB}} )
-        create  (n) - [${relation.relation}:${relation.relation}{name:"${relation.relation}"}] -> (m)
+        merge  (n) - [${relation.relation}:${relation.relation}{name:"${relation.relation}"}] -> (m)
     </insert>
 
     <insert id="addStrengthRelation">
