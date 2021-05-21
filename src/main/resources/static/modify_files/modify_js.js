@@ -364,6 +364,7 @@ function searchModifyEntity(){
         dataType: 'json',
         success: function (data) {
             document.getElementById("entityName_get").value = data.data[0].name;
+            document.getElementById("entityName_get").disabled="";
             document.getElementById("modifyEntityType").value = data.data[0].type;
             if (data.msg=="No entity found"){
                 alert(data.msg);

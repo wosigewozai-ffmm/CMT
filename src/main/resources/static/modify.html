@@ -190,6 +190,7 @@
             <h1>excel upload</h1>
             <input type="file" name="filename" id="filename"    />
             <input type="button" id="submit" onclick="imgUpload()" value="submit"/>
+            <br>
             <select id="entityExcelType" onchange="selectChange()">
             </select>
             <input type="button" id="addExcelEntity_" onclick="addExcelEntity()" value="addEntity"/>
@@ -270,7 +271,7 @@
                 <br>
                 <br>
                 <label>名称</label>
-                <input id ="entityName_get" type = "text">
+                <input id ="entityName_get" type = "text" disabled="disabled">
                 <label>类型</label>
                 <select id="modifyEntityType">
                     <option value="" selected></option>
